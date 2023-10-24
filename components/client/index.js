@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Alert,
   Box,
   Typography,
   Button,
@@ -18,6 +19,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import FileUploader from "./FileUploader";
 
 export {
+  Alert,
   Box,
   Typography,
   Button,

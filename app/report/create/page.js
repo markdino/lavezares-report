@@ -14,7 +14,10 @@ import {
   DatePicker,
   FileUploader,
   Spinner,
+  Alert,
 } from "@/components/client";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ErrorIcon from "@mui/icons-material/Error";
 import dayjs from "dayjs";
 import { createReport } from "@/services/api";
 
@@ -302,6 +305,23 @@ const CreateReport = () => {
             {status === "loading" && <Spinner className="-ml-7" />}
             Submit
           </Button>
+          {status === "success" ? (
+            <Alert color="green" variant="ghost" className="mt-3">
+              <section className="flex items-center gap-1">
+                <CheckCircleIcon />
+                Report successfully sumitted
+              </section>
+            </Alert>
+          ) : (
+            status === "failed" && (
+              <Alert color="red" variant="ghost" className="mt-3">
+                <section className="flex items-center gap-1">
+                  <ErrorIcon />
+                  Report failed to submit
+                </section>
+              </Alert>
+            )
+          )}
         </form>
       </Card>
     </main>
