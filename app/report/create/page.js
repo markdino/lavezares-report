@@ -1,12 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Card,
   Typography,
   Input,
   Textarea,
   Button,
-  Checkbox,
   DemoContainer,
   AdapterDayjs,
   LocalizationProvider,
@@ -18,24 +17,53 @@ import {
 } from "@/components/client";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import dayjs from "dayjs";
 import { createReport } from "@/services/api";
 
 const CreateReport = () => {
   const defaultDate = dayjs(new Date());
-
-  const [formData, setFormData] = useState({
+  const defaultFormData = {
     reportDate: defaultDate,
     reportTime: defaultDate,
     crimeDate: defaultDate,
     crimeTime: defaultDate,
-  });
+  };
+  const reporterPositionRef = useRef(null);
+  const reporterFirstNameRef = useRef(null);
+  const reporterMiddletNameRef = useRef(null);
+  const reporterLastNameRef = useRef(null);
+  const incidentLocationRef = useRef(null);
+  const incidentDetailsRef = useRef(null);
+  const suspectChargesRef = useRef(null);
+  const reportArrestedRef = useRef(null);
+  const suspectFirstNameRef = useRef(null);
+  const suspectLastNameRef = useRef(null);
+  const reporterContactRef = useRef(null);
+
+  const [formData, setFormData] = useState(defaultFormData);
   const [certify, setCertify] = useState(false);
   const [status, setStatus] = useState("");
 
+  const handleResetForm = () => {
+    setFormData(defaultFormData);
+    setCertify(false);
+    reporterPositionRef.current.value = "";
+    reporterFirstNameRef.current.value = "";
+    reporterMiddletNameRef.current.value = "";
+    reporterLastNameRef.current.value = "";
+    incidentLocationRef.current.querySelector("textarea").value = "";
+    incidentDetailsRef.current.querySelector("textarea").value = "";
+    suspectChargesRef.current.querySelector("textarea").value = "";
+    reportArrestedRef.current.querySelector("textarea").value = "";
+    suspectFirstNameRef.current.value = "";
+    suspectLastNameRef.current.value = "";
+    reporterContactRef.current.querySelector("textarea").value = "";
+  };
+
   const handleFormData = (newData) => {
     setFormData((prevState) => ({ ...prevState, ...newData }));
-    console.log({ formData });
   };
 
   const handleSubmit = () => {
@@ -44,6 +72,7 @@ const CreateReport = () => {
       onSubmit: () => setStatus("loading"),
       onSuccess: (data) => {
         setStatus("success");
+        handleResetForm();
         console.log({ status, data });
       },
       onFailed: (response) => {
@@ -126,6 +155,7 @@ const CreateReport = () => {
                 <section className="w-3/12">
                   <Input
                     label="Position"
+                    inputRef={reporterPositionRef}
                     value={formData.reporterPosition}
                     onChange={(e) =>
                       handleFormData({ reporterPosition: e.target.value })
@@ -135,6 +165,7 @@ const CreateReport = () => {
                 <section className="sm:w-7/12">
                   <Input
                     label="First Name"
+                    inputRef={reporterFirstNameRef}
                     value={formData.reporterFirstName}
                     onChange={(e) =>
                       handleFormData({ reporterFirstName: e.target.value })
@@ -145,6 +176,7 @@ const CreateReport = () => {
               <section className="flex justify-between gap-2 sm:flex-row flex-col">
                 <Input
                   label="Middle Name"
+                  inputRef={reporterMiddletNameRef}
                   value={formData.reporterMiddletName}
                   onChange={(e) =>
                     handleFormData({ reporterMiddletName: e.target.value })
@@ -152,6 +184,7 @@ const CreateReport = () => {
                 />
                 <Input
                   label="Last Name"
+                  inputRef={reporterLastNameRef}
                   value={formData.reporterLastName}
                   onChange={(e) =>
                     handleFormData({ reporterLastName: e.target.value })
@@ -168,6 +201,7 @@ const CreateReport = () => {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
+              ref={incidentLocationRef}
               value={formData.incidentLocation}
               onChange={(e) =>
                 handleFormData({ incidentLocation: e.target.value })
@@ -182,6 +216,7 @@ const CreateReport = () => {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
+              ref={incidentDetailsRef}
               value={formData.incidentDetails}
               onChange={(e) =>
                 handleFormData({ incidentDetails: e.target.value })
@@ -209,6 +244,7 @@ const CreateReport = () => {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
+              ref={suspectChargesRef}
               value={formData.suspectCharges}
               onChange={(e) =>
                 handleFormData({ suspectCharges: e.target.value })
@@ -223,6 +259,7 @@ const CreateReport = () => {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
+              ref={reportArrestedRef}
               value={formData.reportArrested}
               onChange={(e) =>
                 handleFormData({ reportArrested: e.target.value })
@@ -235,6 +272,7 @@ const CreateReport = () => {
             <section className="flex justify-between gap-2 sm:flex-row flex-col">
               <Input
                 label="First Name"
+                inputRef={suspectFirstNameRef}
                 value={formData.suspectFirstName}
                 onChange={(e) =>
                   handleFormData({ suspectFirstName: e.target.value })
@@ -242,6 +280,7 @@ const CreateReport = () => {
               />
               <Input
                 label="Last Name"
+                inputRef={suspectLastNameRef}
                 value={formData.suspectLastName}
                 onChange={(e) =>
                   handleFormData({ suspectLastName: e.target.value })
@@ -258,6 +297,7 @@ const CreateReport = () => {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
+              ref={reporterContactRef}
               value={formData.reporterContact}
               onChange={(e) =>
                 handleFormData({ reporterContact: e.target.value })
@@ -282,17 +322,20 @@ const CreateReport = () => {
             </section>
             <hr />
           </section>
-          <Checkbox
-            label={
-              <Typography variant="small" color="gray" className="font-normal">
-                I certify that the above information is true and correct.
-                <span className="text-red-800 font-black text-xl">*</span>
-              </Typography>
-            }
-            containerProps={{ className: "-ml-2.5" }}
-            value={certify}
-            onChange={() => setCertify((prevState) => !prevState)}
-          />
+          <Typography
+            variant="small"
+            color="gray"
+            className="font-normal cursor-pointer"
+            onClick={() => setCertify((prevState) => !prevState)}
+          >
+            {certify ? (
+              <CheckBoxIcon className="mr-3" />
+            ) : (
+              <CheckBoxOutlineBlankIcon className="mr-3" />
+            )}
+            I certify that the above information is true and correct.
+            <span className="text-red-800 font-black text-xl">*</span>
+          </Typography>
           <Button
             className="mt-6 flex justify-center gap-2 items-center"
             color="light-blue"
