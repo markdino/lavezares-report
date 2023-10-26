@@ -11,16 +11,18 @@ import {
   LocalizationProvider,
   TimePicker,
   DatePicker,
-  FileUploader,
+  FileCloudUploader,
   Spinner,
   Alert,
 } from "@/components/client";
+import MediaFile from "@/components/MediaFile";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import dayjs from "dayjs";
 import { createReport } from "@/services/api";
+import { UPLOAD_FILES } from "@/utils/constant";
 
 const CreateReport = () => {
   const defaultDate = dayjs(new Date());
@@ -45,6 +47,7 @@ const CreateReport = () => {
   const [formData, setFormData] = useState(defaultFormData);
   const [certify, setCertify] = useState(false);
   const [status, setStatus] = useState("");
+  const [uploadError, setUploadError] = useState("");
 
   const handleResetForm = () => {
     setFormData(defaultFormData);
@@ -64,6 +67,32 @@ const CreateReport = () => {
 
   const handleFormData = (newData) => {
     setFormData((prevState) => ({ ...prevState, ...newData }));
+    setStatus("");
+  };
+
+  const handleUploadData = (rawFiles) => {
+    const files = rawFiles.map(({ name, url, size, key }) => ({
+      name,
+      url,
+      size,
+      key,
+    }));
+    setFormData((prevState) => {
+      if (prevState.files) {
+        return { ...prevState, files: [...prevState.files, ...files] };
+      }
+
+      return { ...prevState, files };
+    });
+  };
+
+  const handleRemoveUpload = (fileKey) => {
+    setFormData((prevState) => {
+      const remainFiles = prevState.files.filter(
+        (file) => file.key !== fileKey
+      );
+      return { ...prevState, files: remainFiles };
+    });
   };
 
   const handleSubmit = () => {
@@ -73,11 +102,9 @@ const CreateReport = () => {
       onSuccess: (data) => {
         setStatus("success");
         handleResetForm();
-        console.log({ status, data });
       },
       onFailed: (response) => {
         setStatus("failed");
-        console.log({ response, data });
       },
     });
   };
@@ -222,18 +249,7 @@ const CreateReport = () => {
                 handleFormData({ incidentDetails: e.target.value })
               }
             />
-            <section>
-              <FileUploader
-                accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
-                fullWidth={false}
-                size="sm"
-                variant="gradient"
-                color="light-blue"
-                handleFile={(file) => handleFormData({ imageFile: file })}
-              >
-                Upload an image
-              </FileUploader>
-            </section>
+            <section></section>
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Was the suspect of the report of the incident wanted/have or had
               any charges on him/her? If so what?
@@ -305,20 +321,37 @@ const CreateReport = () => {
             />
             <section>
               <Typography variant="h6" color="blue-gray" className="-mb-2">
-                You may also upload other files here:
+                You may also upload files here:
               </Typography>
               <Typography variant="small" color="gray" className="font-normal">
-                Note: If multiple file make it in an archive file e.g(.zip)
+                Note: {UPLOAD_FILES.mediaPost.getMessage()}
               </Typography>
-              <FileUploader
+              <section className="flex gap-3 flex-wrap">
+                {formData.files?.map((file) => (
+                  <MediaFile
+                    fileName={file.name}
+                    filePath={file.url}
+                    onClose={() => handleRemoveUpload(file.key)}
+                    key={file.key}
+                  />
+                ))}
+              </section>
+              <FileCloudUploader
                 size="sm"
                 fullWidth={false}
                 variant="gradient"
                 color="light-blue"
-                handleFile={(file) => handleFormData({ otherFile: file })}
+                handleFile={(files) => handleUploadData(files)}
+                onError={(message) => setUploadError(message)}
+                onChange={() => setUploadError("")}
               >
-                Upload a file
-              </FileUploader>
+                Upload media files
+              </FileCloudUploader>
+              {uploadError && (
+                <Typography variant="small" color="red" className="font-normal">
+                  {uploadError}
+                </Typography>
+              )}
             </section>
             <hr />
           </section>
