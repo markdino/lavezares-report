@@ -9,10 +9,26 @@ const ReportSchema = new Schema({
     type: Date,
     required: [true, "Crime time is required!"],
   },
-  imageFile: {
-    type: String,
+  files: {
+    type: [
+      {
+        name: { type: String, required: [true, "File name is required"] },
+        url: { type: String, required: [true, "File url is required"] },
+        size: { type: Number, required: [true, "File size is required"] },
+        key: {
+          type: String,
+          required: [true, "File key identifier is required"],
+        },
+      },
+    ],
   },
   incidentDetails: {
+    type: String,
+  },
+  incidentLocation: {
+    type: String,
+  },
+  reportArrested: {
     type: String,
   },
   reportDate: {
