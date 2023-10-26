@@ -146,12 +146,12 @@ const CreateReport = () => {
                   />
                 </DemoContainer>
               </section>
-            </LocalizationProvider>
+            {/* </LocalizationProvider> */}
 
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Date and time when incident occurred:
             </Typography>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}> */}
               <section className="flex gap-4 md:flex-row flex-col">
                 <DemoContainer components={["DatePicker"]}>
                   <DatePicker
