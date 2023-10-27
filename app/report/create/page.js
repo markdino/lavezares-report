@@ -34,7 +34,7 @@ const CreateReport = () => {
   };
   const reporterPositionRef = useRef(null);
   const reporterFirstNameRef = useRef(null);
-  const reporterMiddletNameRef = useRef(null);
+  const reporterMiddleNameRef = useRef(null);
   const reporterLastNameRef = useRef(null);
   const incidentLocationRef = useRef(null);
   const incidentDetailsRef = useRef(null);
@@ -54,7 +54,7 @@ const CreateReport = () => {
     setCertify(false);
     reporterPositionRef.current.value = "";
     reporterFirstNameRef.current.value = "";
-    reporterMiddletNameRef.current.value = "";
+    reporterMiddleNameRef.current.value = "";
     reporterLastNameRef.current.value = "";
     incidentLocationRef.current.querySelector("textarea").value = "";
     incidentDetailsRef.current.querySelector("textarea").value = "";
@@ -203,10 +203,10 @@ const CreateReport = () => {
               <section className="flex justify-between gap-2 sm:flex-row flex-col">
                 <Input
                   label="Middle Name"
-                  inputRef={reporterMiddletNameRef}
-                  value={formData.reporterMiddletName}
+                  inputRef={reporterMiddleNameRef}
+                  value={formData.reporterMiddleName}
                   onChange={(e) =>
-                    handleFormData({ reporterMiddletName: e.target.value })
+                    handleFormData({ reporterMiddleName: e.target.value })
                   }
                 />
                 <Input

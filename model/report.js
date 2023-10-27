@@ -48,7 +48,7 @@ const ReportSchema = new Schema({
   reporterLastName: {
     type: String,
   },
-  reporterMiddletName: {
+  reporterMiddleName: {
     type: String,
   },
   reporterPosition: {
