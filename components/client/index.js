@@ -2,10 +2,13 @@
 
 import {
   Alert,
-  Box,
   Typography,
   Button,
+  IconButton,
   Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
   Input,
   Textarea,
   Checkbox,
@@ -21,10 +24,13 @@ import FileCloudUploader from "./FileCloudUploader";
 
 export {
   Alert,
-  Box,
   Typography,
   Button,
+  IconButton,
   Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
   Input,
   Textarea,
   Checkbox,
