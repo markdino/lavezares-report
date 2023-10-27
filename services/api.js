@@ -7,9 +7,24 @@ export const createReport = ({
   onFailed = () => {},
 }) => {
   onSubmit();
-
   axios
     .post("/api/report/create", reportData)
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
+
+export const getAllReports = ({
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .get("/api/report")
     .then(({ data }) => {
       onSuccess(data);
     })
