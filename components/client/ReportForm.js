@@ -311,6 +311,7 @@ const ReportForm = ({ defaultFormData = {}, readOnly }) => {
                 fileName={file.name}
                 filePath={file.url}
                 onClose={() => handleRemoveUpload(file.key)}
+                readOnly={readOnly}
                 key={file.key}
               />
             ))}
