@@ -21,6 +21,7 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import FileUploader from "./FileUploader";
 import FileCloudUploader from "./FileCloudUploader";
+import ReportForm from "./ReportForm";
 
 export {
   Alert,
@@ -42,4 +43,5 @@ export {
   DatePicker,
   FileUploader,
   FileCloudUploader,
+  ReportForm,
 };
