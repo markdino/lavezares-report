@@ -118,7 +118,7 @@ const Dashboard = () => {
                   </section>
                 ) : (
                   data &&
-                  (data.lenght <= 0
+                  (data.length <= 0
                     ? (
                         <section className="absolute flex w-full">
                           <Alert color="teal" variant="ghost" className="my-4 mx-3">
@@ -137,7 +137,7 @@ const Dashboard = () => {
                           >
                             <td className={tdClassName}>
                               <Typography className="font-bold w-40 truncate">
-                                {report.reporterFirstName || ""}{" "}{report.reporterMiddleName || ""}{" "}{report.reporterLastName || ""}
+                              {report.reporterPosition || ""}{" "}{report.reporterFirstName || ""}{" "}{report.reporterMiddleName || ""}{" "}{report.reporterLastName || ""}
                               </Typography>
                             </td>
                             <td className={tdClassName}>
