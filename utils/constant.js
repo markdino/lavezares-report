@@ -16,11 +16,11 @@ export const UPLOAD_FILES = {
     getMessage: function () {
       return `Images up to ${this.image.maxFileSize}, max ${
         this.image.maxFileCount
-      } file${this.image.maxFileCount > 1 ? "s" : ""}. Videos up to ${
+      } file${this.image.maxFileCount > 1 ? "s" : ""}. Video up to ${
         this.video.maxFileSize
       }, max ${this.video.maxFileCount} file${
         this.video.maxFileCount > 1 ? "s" : ""
-      }.`;
+      }`;
     },
   },
 };
