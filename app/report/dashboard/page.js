@@ -9,14 +9,17 @@ import {
   Typography,
   IconButton,
   Spinner,
+  Button,
 } from "@/components/client";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
-import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import { useRouter } from "next/navigation";
 import { getAllReports } from "@/services/api";
 import dayjs from "dayjs";
+import Link from "next/link";
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
@@ -68,14 +71,25 @@ const Dashboard = () => {
   }, []);
   return (
     <main className="min-h-screen w-full px-2">
-      <section className="lg:mt-20 mt-16">
+      <section className="lg:pt-20 pt-16">
         <Card className="h-full max-w-fit  mx-auto">
-          <CardHeader floated={false} shadow={false} className="rounded-none">
+          <CardHeader
+            floated={false}
+            shadow={false}
+            className="rounded-none flex justify-between"
+          >
             <div className="mb-4">
               <Typography variant="h5" color="blue-gray">
                 List of Reports
               </Typography>
             </div>
+            <section>
+              <Link href="/report/create">
+                <Button color="green" className="flex items-center gap-1">
+                  <span className="hidden sm:block">Create New</span><NoteAddIcon />
+                </Button>
+              </Link>
+            </section>
           </CardHeader>
           <CardBody className="overflow-auto px-0">
             <table className="min-w-max table-auto text-left border">
@@ -100,108 +114,118 @@ const Dashboard = () => {
               <tbody className="relative h-24">
                 {isLoading ? (
                   <section className="absolute flex w-full">
-                  <Alert color="blue-gray" variant="ghost" className="my-4 mx-3">
-                    <section className="flex gap-2">
-                      <Spinner />
-                      <Typography>Loading...</Typography>
-                    </section>
-                  </Alert>
-                </section>
+                    <Alert
+                      color="blue-gray"
+                      variant="ghost"
+                      className="my-4 mx-3"
+                    >
+                      <section className="flex gap-2">
+                        <Spinner />
+                        <Typography>Loading...</Typography>
+                      </section>
+                    </Alert>
+                  </section>
                 ) : error ? (
                   <section className="absolute flex w-full">
                     <Alert color="red" variant="ghost" className="my-4 mx-3">
                       <section className="flex gap-2">
                         <WarningRoundedIcon />
-                        <Typography>Sorry, something went wrong please try again.</Typography>
+                        <Typography>
+                          Sorry, something went wrong please try again.
+                        </Typography>
                       </section>
                     </Alert>
                   </section>
                 ) : (
                   data &&
-                  (data.lenght <= 0
-                    ? (
-                        <section className="absolute flex w-full">
-                          <Alert color="teal" variant="ghost" className="my-4 mx-3">
-                            <section className="flex gap-2">
-                              <InfoRoundedIcon />
-                              <Typography>Empty report.</Typography>
-                            </section>
-                          </Alert>
+                  (data.length <= 0 ? (
+                    <section className="absolute flex w-full">
+                      <Alert color="teal" variant="ghost" className="my-4 mx-3">
+                        <section className="flex gap-2">
+                          <InfoRoundedIcon />
+                          <Typography>Empty report.</Typography>
                         </section>
-                      )
-                    : data.map((report) => (
-                        <>
-                          <tr
-                            onClick={() => handleView(report._id)}
-                            className="hover:bg-light-blue-50 cursor-pointer"
-                          >
-                            <td className={tdClassName}>
-                              <Typography className="font-bold w-40 truncate">
-                                {report.reporterFirstName || ""}{" "}{report.reporterMiddleName || ""}{" "}{report.reporterLastName || ""}
-                              </Typography>
-                            </td>
-                            <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
-                                {report.incidentLocation}
-                              </Typography>
-                            </td>
-                            <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
-                                {report.incidentDetails}
-                              </Typography>
-                            </td>
-                            <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
-                                {report.suspectCharges}
-                              </Typography>
-                            </td>
-                            <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
-                                {report.reportArrested}
-                              </Typography>
-                            </td>
-                            <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
-                              {report.suspectFirstName || ""}{" "}{report.suspectLastName || ""}
-                              </Typography>
-                            </td>
-                            <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
-                                {dayjs(report.crimeDate).format("L")}
-                                {" - "}
-                                {dayjs(report.crimeTime).format("LT")}
-                              </Typography>
-                            </td>
-                            <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
-                                {dayjs(report.reportDate).format("L")}
-                                {" - "}
-                                {dayjs(report.reportTime).format("LT")}
-                              </Typography>
-                            </td>
-                            <td className={tdClassName}>
-                              <section className="flex gap-3">
-                                <IconButton
-                                  color="light-blue"
-                                  onClick={(e) => handleEdit(e, report._id)}
-                                >
-                                  <span>
-                                    <EditIcon />
-                                  </span>
-                                </IconButton>
-                                <IconButton
-                                  color="red"
-                                  onClick={(e) => handleDelete(e, report._id)}
-                                >
-                                  <span>
-                                    <DeleteForeverIcon />
-                                  </span>
-                                </IconButton>
-                              </section>
-                            </td>
-                          </tr>
-                        </>
-                      )))
+                      </Alert>
+                    </section>
+                  ) : (
+                    data.map((report) => (
+                      <>
+                        <tr
+                          onClick={() => handleView(report._id)}
+                          className="hover:bg-light-blue-50 cursor-pointer"
+                        >
+                          <td className={tdClassName}>
+                            <Typography className="font-bold w-40 truncate">
+                              {report.reporterPosition || ""}{" "}
+                              {report.reporterFirstName || ""}{" "}
+                              {report.reporterMiddleName || ""}{" "}
+                              {report.reporterLastName || ""}
+                            </Typography>
+                          </td>
+                          <td className={tdClassName}>
+                            <Typography className="w-40 truncate">
+                              {report.incidentLocation}
+                            </Typography>
+                          </td>
+                          <td className={tdClassName}>
+                            <Typography className="w-40 truncate">
+                              {report.incidentDetails}
+                            </Typography>
+                          </td>
+                          <td className={tdClassName}>
+                            <Typography className="w-40 truncate">
+                              {report.suspectCharges}
+                            </Typography>
+                          </td>
+                          <td className={tdClassName}>
+                            <Typography className="w-40 truncate">
+                              {report.reportArrested}
+                            </Typography>
+                          </td>
+                          <td className={tdClassName}>
+                            <Typography className="w-40 truncate">
+                              {report.suspectFirstName || ""}{" "}
+                              {report.suspectLastName || ""}
+                            </Typography>
+                          </td>
+                          <td className={tdClassName}>
+                            <Typography className="w-40 truncate">
+                              {dayjs(report.crimeDate).format("L")}
+                              {" - "}
+                              {dayjs(report.crimeTime).format("LT")}
+                            </Typography>
+                          </td>
+                          <td className={tdClassName}>
+                            <Typography className="w-40 truncate">
+                              {dayjs(report.reportDate).format("L")}
+                              {" - "}
+                              {dayjs(report.reportTime).format("LT")}
+                            </Typography>
+                          </td>
+                          <td className={tdClassName}>
+                            <section className="flex gap-3">
+                              <IconButton
+                                color="light-blue"
+                                onClick={(e) => handleEdit(e, report._id)}
+                              >
+                                <span>
+                                  <EditIcon />
+                                </span>
+                              </IconButton>
+                              <IconButton
+                                color="red"
+                                onClick={(e) => handleDelete(e, report._id)}
+                              >
+                                <span>
+                                  <DeleteForeverIcon />
+                                </span>
+                              </IconButton>
+                            </section>
+                          </td>
+                        </tr>
+                      </>
+                    ))
+                  ))
                 )}
               </tbody>
             </table>
