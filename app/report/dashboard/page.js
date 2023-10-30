@@ -47,7 +47,7 @@ const Dashboard = () => {
 
   const handleEdit = (event, id) => {
     event.stopPropagation();
-    router.push(`/report/edit/${id}`);
+    router.push(`/report/${id}/edit`);
   };
 
   const handleDelete = (event, id) => {

@@ -22,10 +22,10 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 import dayjs from "dayjs";
-import { createReport } from "@/services/api";
+import { createReport, editReport } from "@/services/api";
 import { UPLOAD_FILES } from "@/utils/constant";
 
-const ReportForm = ({ defaultFormData = {}, readOnly }) => {
+const ReportForm = ({ defaultFormData = {}, readOnly, action = "" }) => {
   const reporterPositionRef = useRef(null);
   const reporterFirstNameRef = useRef(null);
   const reporterMiddleNameRef = useRef(null);
@@ -90,18 +90,31 @@ const ReportForm = ({ defaultFormData = {}, readOnly }) => {
   };
 
   const handleSubmit = () => {
-    createReport({
-      reportData: formData,
-      onSubmit: () => setStatus("loading"),
-      onSuccess: (data) => {
-        setStatus("success");
-        handleResetForm();
-      },
-      onFailed: (response) => {
-        setStatus("failed");
-      },
-    });
-    console.log(formData);
+    if (action.toUpperCase() === "PUT") {
+      editReport({
+        reportId: formData._id,
+        reportData: formData,
+        onSubmit: () => setStatus("loading"),
+        onSuccess: (data) => {
+          setStatus("success");
+        },
+        onFailed: (response) => {
+          setStatus("failed");
+        },
+      });
+    } else {
+      createReport({
+        reportData: formData,
+        onSubmit: () => setStatus("loading"),
+        onSuccess: (data) => {
+          setStatus("success");
+          handleResetForm();
+        },
+        onFailed: (response) => {
+          setStatus("failed");
+        },
+      });
+    }
   };
 
   return (
@@ -300,7 +313,7 @@ const ReportForm = ({ defaultFormData = {}, readOnly }) => {
         />
         <section>
           <Typography variant="h6" color="blue-gray" className="-mb-2">
-            {readOnly ? "Attached file(s):":"You may also upload files here:"}
+            {readOnly ? "Attached file(s):" : "You may also upload files here:"}
           </Typography>
           <Typography variant="small" color="gray" className="font-normal">
             {UPLOAD_FILES.mediaPost.getMessage()}
@@ -371,7 +384,7 @@ const ReportForm = ({ defaultFormData = {}, readOnly }) => {
             <Alert color="green" variant="ghost" className="mt-3">
               <section className="flex items-center gap-1">
                 <CheckCircleIcon />
-                Report successfully sumitted
+                Report successfully submitted
               </section>
             </Alert>
           ) : (
