@@ -50,3 +50,21 @@ export const getReport = ({
     });
 };
 
+export const editReport = ({
+  reportId,
+  reportData,
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .put(`/api/report/${reportId}`,reportData)
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
+
