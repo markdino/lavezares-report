@@ -32,3 +32,21 @@ export const getAllReports = ({
       onFailed(response);
     });
 };
+
+export const getReport = ({
+  reportId,
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .get(`/api/report/${reportId}`)
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
+
