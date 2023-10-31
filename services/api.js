@@ -68,3 +68,19 @@ export const editReport = ({
     });
 };
 
+export const deleteReport = ({
+  reportId,
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .delete(`/api/report/${reportId}`)
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
