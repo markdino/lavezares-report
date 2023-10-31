@@ -10,6 +10,7 @@ import {
   IconButton,
   Spinner,
   Button,
+  DeleteModal,
 } from "@/components/client";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -17,7 +18,7 @@ import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import { useRouter } from "next/navigation";
-import { getAllReports } from "@/services/api";
+import { deleteReport, getAllReports } from "@/services/api";
 import dayjs from "dayjs";
 import Link from "next/link";
 
@@ -25,6 +26,10 @@ const Dashboard = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalIsLoading, setModalIsLoading] = useState(false);
+  const [modalError, setModalError] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
 
   const router = useRouter();
   const TABLE_HEAD = [
@@ -52,6 +57,36 @@ const Dashboard = () => {
 
   const handleDelete = (event, id) => {
     event.stopPropagation();
+    setDeleteId(id);
+    setShowModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (deleteId) {
+      console.log(deleteId);
+      deleteReport({
+        reportId: deleteId,
+        onSubmit: () => setModalIsLoading(true),
+        onSuccess: () => {
+          setModalIsLoading(false);
+          setModalError(null);
+          setData((prevState) =>
+            prevState?.filter((report) => report._id !== deleteId)
+          );
+          setShowModal(false);
+        },
+        onFailed: ({ status, data }) => {
+            setModalIsLoading(false);
+          setModalError({ status, message: data.error });
+        },
+      });
+    }
+  };
+
+  const handleModalCancel = () => {
+    setModalError(null);
+    setDeleteId(null);
+    setShowModal(false);
   };
 
   useEffect(() => {
@@ -86,7 +121,8 @@ const Dashboard = () => {
             <section>
               <Link href="/report/create">
                 <Button color="green" className="flex items-center gap-1">
-                  <span className="hidden sm:block">Create New</span><NoteAddIcon />
+                  <span className="hidden sm:block">Create New</span>
+                  <NoteAddIcon />
                 </Button>
               </Link>
             </section>
@@ -232,6 +268,13 @@ const Dashboard = () => {
           </CardBody>
           <CardFooter></CardFooter>
         </Card>
+        <DeleteModal
+          open={showModal}
+          loading={modalIsLoading}
+          error={modalError}
+          onConfirm={handleConfirmDelete}
+          onCancel={handleModalCancel}
+        />
       </section>
     </main>
   );

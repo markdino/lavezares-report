@@ -13,6 +13,10 @@ import {
   Textarea,
   Checkbox,
   Spinner,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
 } from "@material-tailwind/react";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -22,6 +26,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import FileUploader from "./FileUploader";
 import FileCloudUploader from "./FileCloudUploader";
 import ReportForm from "./ReportForm";
+import DeleteModal from "./DeleteModal";
 
 export {
   Alert,
@@ -36,6 +41,10 @@ export {
   Textarea,
   Checkbox,
   Spinner,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
   DemoContainer,
   AdapterDayjs,
   LocalizationProvider,
@@ -44,4 +53,5 @@ export {
   FileUploader,
   FileCloudUploader,
   ReportForm,
+  DeleteModal,
 };
