@@ -27,7 +27,7 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [isModalLoading, setIsModalLoading] = useState(false);
+  const [modalIsLoading, setModalIsLoading] = useState(false);
   const [modalError, setModalError] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
 
@@ -66,9 +66,9 @@ const Dashboard = () => {
       console.log(deleteId);
       deleteReport({
         reportId: deleteId,
-        onSubmit: () => setIsModalLoading(true),
+        onSubmit: () => setModalIsLoading(true),
         onSuccess: () => {
-          setIsModalLoading(false);
+          setModalIsLoading(false);
           setModalError(null);
           setData((prevState) =>
             prevState?.filter((report) => report._id !== deleteId)
@@ -76,7 +76,7 @@ const Dashboard = () => {
           setShowModal(false);
         },
         onFailed: ({ status, data }) => {
-          setIsLoading(false);
+            setModalIsLoading(false);
           setModalError({ status, message: data.error });
         },
       });
@@ -270,7 +270,7 @@ const Dashboard = () => {
         </Card>
         <DeleteModal
           open={showModal}
-          loading={isModalLoading}
+          loading={modalIsLoading}
           error={modalError}
           onConfirm={handleConfirmDelete}
           onCancel={handleModalCancel}
