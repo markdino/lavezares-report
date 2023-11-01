@@ -17,6 +17,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import AutorenewRoundedIcon from "@mui/icons-material/AutorenewRounded";
 import { useRouter } from "next/navigation";
 import { deleteReport, getAllReports } from "@/services/api";
 import dayjs from "dayjs";
@@ -76,7 +77,7 @@ const Dashboard = () => {
           setShowModal(false);
         },
         onFailed: ({ status, data }) => {
-            setModalIsLoading(false);
+          setModalIsLoading(false);
           setModalError({ status, message: data.error });
         },
       });
@@ -89,7 +90,7 @@ const Dashboard = () => {
     setShowModal(false);
   };
 
-  useEffect(() => {
+  const handleGetAllReport = () => {
     getAllReports({
       onSubmit: () => setIsLoading(true),
       onSuccess: (data) => {
@@ -103,6 +104,10 @@ const Dashboard = () => {
         console.error(response);
       },
     });
+  };
+
+  useEffect(() => {
+    handleGetAllReport();
   }, []);
   return (
     <main className="min-h-screen w-full px-2">
@@ -118,7 +123,18 @@ const Dashboard = () => {
                 List of Reports
               </Typography>
             </div>
-            <section>
+            <section className="flex gap-2">
+              <IconButton
+                variant="text"
+                onClick={handleGetAllReport}
+                size="lg"
+                color="blue-gray"
+                disabled={isLoading}
+              >
+                <span>
+                  <AutorenewRoundedIcon />
+                </span>
+              </IconButton>
               <Link href="/report/create">
                 <Button color="green" className="flex items-center gap-1">
                   <span className="hidden sm:block">Create New</span>
