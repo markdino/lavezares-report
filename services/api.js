@@ -84,3 +84,20 @@ export const deleteReport = ({
       onFailed(response);
     });
 };
+
+export const deleteFile = ({
+  fileId,
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .delete(`/api/file/${fileId}`)
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
