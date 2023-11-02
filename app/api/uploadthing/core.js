@@ -1,5 +1,8 @@
 import { createUploadthing } from "uploadthing/next";
+import { UTApi } from "uploadthing/server";
 import { UPLOAD_FILES } from "@/utils/constant";
+
+export const utapi = new UTApi();
 
 const { imageUploader, mediaPost } = UPLOAD_FILES;
 const f = createUploadthing();

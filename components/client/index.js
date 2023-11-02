@@ -27,6 +27,7 @@ import FileUploader from "./FileUploader";
 import FileCloudUploader from "./FileCloudUploader";
 import ReportForm from "./ReportForm";
 import DeleteModal from "./DeleteModal";
+import MediaFile from "../MediaFile";
 
 export {
   Alert,
@@ -54,4 +55,5 @@ export {
   FileCloudUploader,
   ReportForm,
   DeleteModal,
+  MediaFile,
 };

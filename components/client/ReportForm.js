@@ -13,8 +13,8 @@ import {
   FileCloudUploader,
   Spinner,
   Alert,
+  MediaFile,
 } from "@/components/client";
-import MediaFile from "@/components/MediaFile";
 
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -323,6 +323,7 @@ const ReportForm = ({ defaultFormData = {}, readOnly, action = "" }) => {
               <MediaFile
                 fileName={file.name}
                 filePath={file.url}
+                fileId={file.key}
                 onClose={() => handleRemoveUpload(file.key)}
                 readOnly={readOnly}
                 key={file.key}

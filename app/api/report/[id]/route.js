@@ -1,5 +1,6 @@
 import Report from "@/model/report";
 import { connectToDB } from "@/utils/database";
+import { utapi } from "../../uploadthing/core";
 
 export const GET = async (req, { params }) => {
   const { id } = params;
@@ -30,7 +31,7 @@ export const GET = async (req, { params }) => {
 export const PUT = async (req, { params }) => {
   const updateData = await req.json();
   const { id } = params;
-console.log({updateData})
+
   try {
     await connectToDB();
 
@@ -63,13 +64,32 @@ export const DELETE = async (req, { params }) => {
   try {
     await connectToDB();
 
-    const report = await Report.deleteOne({ _id: id});
+    const report = await Report.findById(id).select("files");
+    if (!report)
+      return new Response(
+        JSON.stringify({ error: "Report Not Found! No File Deleted" }),
+        {
+          status: 404,
+        }
+      );
+
+      // If report has a file(s), delete it from UTAPI server
+    if (report.files?.length > 0) {
+      await utapi.deleteFiles(report.files.map((file) => file.key));
+    }
+
+    const deletedReport = await Report.deleteOne({ _id: id });
     // {"acknowledged":true,"deletedCount":1}
 
-    if (!report || report.deletedCount <= 0)
-      return new Response(JSON.stringify({ error: "No File Deleted! Report Not Found" }), {
-        status: 404,
-      });
+    if (deletedReport.deletedCount <= 0)
+      return new Response(
+        JSON.stringify({
+          error: "Sorry, Something Went Wrong! No File Deleted",
+        }),
+        {
+          status: 404,
+        }
+      );
 
     return new Response(JSON.stringify(report), { status: 200 });
   } catch (error) {
