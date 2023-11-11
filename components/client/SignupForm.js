@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import {
   Button,
   Input,
+  ProfileUploader,
   Spinner,
   Tab,
   TabPanel,
@@ -37,6 +38,18 @@ const SignupForm = () => {
       ...formData,
       [name]: value,
     });
+  };
+
+  const handleUploadProfile = (image) => {
+    setFormData({ ...formData, image });
+  };
+
+  const handleRemoveImage = () => {
+    setFormData({ ...formData, image: null });
+  };
+
+  const handleUploadError = (message) => {
+    setError((prevState) => ({ ...prevState, image: message }));
   };
 
   const handleValidateEmail = (e) => {
@@ -115,7 +128,7 @@ const SignupForm = () => {
     const isEmpty =
       !formData.email || !formData.password || !formData.confirmPassword;
 
-    if (isEmpty || hasError) return;
+    if (isEmpty || hasError || checkAvailability.loading) return;
     infoTabRef.current.click();
   };
 
@@ -130,7 +143,7 @@ const SignupForm = () => {
       formData,
       "email password image position firstName middleName lastName"
     );
-
+    console.log(userData);
     createUser({
       userData,
       onSubmit: () =>
@@ -289,7 +302,7 @@ const SignupForm = () => {
                     Confirm Password *
                   </Typography>
                   <Input
-                    type="confirmPassword"
+                    type="password"
                     name="confirmPassword"
                     value={formData?.confirmPassword}
                     onChange={(e) => {
@@ -324,6 +337,24 @@ const SignupForm = () => {
               >
                 User Info
               </Typography>
+              <Typography
+                variant="small"
+                color="blue-gray"
+                className="mb-2 font-medium"
+              >
+                Profile Photo
+              </Typography>
+              <ProfileUploader
+                className="mb-4"
+                handleFile={handleUploadProfile}
+                onDelete={handleRemoveImage}
+                onError={handleUploadError}
+              />
+              {error?.image && (
+                <Typography variant="small" color="red">
+                  {error.image}
+                </Typography>
+              )}
               <Typography
                 variant="small"
                 color="blue-gray"
