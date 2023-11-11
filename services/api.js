@@ -59,7 +59,7 @@ export const editReport = ({
 }) => {
   onSubmit();
   axios
-    .put(`/api/report/${reportId}`,reportData)
+    .put(`/api/report/${reportId}`, reportData)
     .then(({ data }) => {
       onSuccess(data);
     })
@@ -94,6 +94,40 @@ export const deleteFile = ({
   onSubmit();
   axios
     .delete(`/api/file/${fileId}`)
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
+
+export const createUser = ({
+  userData,
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .post("/api/user/create", userData)
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
+
+export const checkRegisteredEmail = ({
+  email,
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .get(`/api/user/check?email=${email}`)
     .then(({ data }) => {
       onSuccess(data);
     })
