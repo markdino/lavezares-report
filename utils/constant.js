@@ -10,6 +10,17 @@ export const UPLOAD_FILES = {
       } file${this.image.maxFileCount > 1 ? "s" : ""}`;
     },
   },
+  profile: {
+    image: {
+      maxFileSize: "4MB",
+      maxFileCount: 1,
+    },
+    getMessage: function () {
+      return `Image up to ${this.image.maxFileSize}, max ${
+        this.image.maxFileCount
+      } file${this.image.maxFileCount > 1 ? "s" : ""}`;
+    },
+  },
   mediaPost: {
     image: { maxFileSize: "10MB", maxFileCount: 10 },
     video: { maxFileSize: "256MB", maxFileCount: 1 },
