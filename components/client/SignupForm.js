@@ -14,7 +14,7 @@ import {
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import classNames from "classnames";
 import { isValidEmail } from "@/utils/validation";
-import { checkRegisteredEmail, createUser } from "@/services/api";
+import { checkRegisteredEmail, signupUser } from "@/services/api";
 import { extractFields } from "@/utils/helper";
 import { useRouter } from "next/navigation";
 const CRED = "cred";
@@ -143,8 +143,8 @@ const SignupForm = () => {
       formData,
       "email password image position firstName middleName lastName"
     );
-    console.log(userData);
-    createUser({
+
+    signupUser({
       userData,
       onSubmit: () =>
         setFormStatus((prevState) => ({
