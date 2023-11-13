@@ -39,7 +39,7 @@ export const POST = async (req) => {
     });
 
     // Return the user id with token
-    return new Data(JSON.stringify(responseData), {
+    return new Response(JSON.stringify(responseData), {
       status: 201,
       headers: { "Set-Cookie": serialized },
     });
