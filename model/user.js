@@ -1,4 +1,7 @@
+import { sign } from "jsonwebtoken";
 import { Schema, model, models } from "mongoose";
+
+import { MAX_AGE } from "@/utils/constant";
 
 const UserSchema = new Schema({
   email: {
@@ -40,6 +43,21 @@ const UserSchema = new Schema({
     default: false,
   },
 });
+
+const secret = process.env.JWT_KEY || "";
+
+UserSchema.methods.generateAuthToken = function () {
+  return sign(
+    {
+      _id: this._id,
+      isAdmin: this.isAdmin,
+    },
+    secret,
+    {
+      expiresIn: MAX_AGE,
+    }
+  );
+};
 
 const User = models.User || model("User", UserSchema);
 

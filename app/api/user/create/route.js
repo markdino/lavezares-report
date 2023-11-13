@@ -1,14 +1,22 @@
 import User from "@/model/user";
+import { serialize } from "cookie";
 import { connectToDB } from "@/utils/database";
 import { extractFields } from "@/utils/helper";
+import { AUTH_TOKEN, MAX_AGE } from "@/utils/constant";
+import bcrypt from "bcrypt";
+
 
 export const POST = async (req) => {
   const IS_ADMIN = false;
+  const salt = await bcrypt.genSalt(10);
   const payload = await req.json();
   const userPayload = extractFields(
     payload,
     "email password position firstName lastName middleName image isAdmin"
   );
+
+  // Encrypt password
+  userPayload.password = await bcrypt.hash(userPayload.password, salt);
 
   //   Prevent none admin user to create admin user
   if (userPayload?.isAdmin && !IS_ADMIN) {
@@ -21,10 +29,26 @@ export const POST = async (req) => {
     // Create user
     const newUser = new User(userPayload);
     await newUser.save();
-    const { _id } = newUser;
+    const responseData = extractFields(
+      newUser,
+      "_id position firstName middleName lastName image"
+    );
 
-    // Return the user id
-    return new Response(JSON.stringify({ userId: _id }), { status: 201 });
+    const token = newUser.generateAuthToken();
+
+    const serialized = serialize(AUTH_TOKEN, token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: MAX_AGE,
+      path: "/",
+    });
+
+    // Return the user id with token
+    return new Data(JSON.stringify(responseData), {
+      status: 201,
+      headers: { "Set-Cookie": serialized },
+    });
   } catch (error) {
     if (error.name === "MongoServerError" && error.code === 11000) {
       // Handle unique constraint violation (duplicate key error)
