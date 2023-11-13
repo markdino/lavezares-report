@@ -1,5 +1,7 @@
 export const extractFields = (obj, fields) => {
-  if (!obj || typeof obj.toObject !== 'function') {
+  if (obj && typeof obj.toObject === 'function') {
+    obj = obj.toObject();
+  } else if (typeof obj !== 'object' || obj === null) {
     throw new Error('Invalid object provided.');
   }
 
@@ -7,7 +9,7 @@ export const extractFields = (obj, fields) => {
   const newObj = {};
 
   fieldArray.forEach(field => {
-    if (obj.toObject().hasOwnProperty(field)) {
+    if (obj.hasOwnProperty(field)) {
       newObj[field] = obj[field];
     }
   });
