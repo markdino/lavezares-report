@@ -136,6 +136,23 @@ export const signupUser = ({
     });
 };
 
+export const signinUser = ({
+  userData,
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .post("/api/user/signin", userData)
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
+
 export const checkRegisteredEmail = ({
   email,
   onSubmit = () => {},

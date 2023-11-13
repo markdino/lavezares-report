@@ -137,7 +137,6 @@ const SignupForm = () => {
     const isEmpty = !formData.firstName || !formData.lastName;
 
     if (isEmpty || hasError) return;
-    console.log(formData);
 
     const userData = extractFields(
       formData,
