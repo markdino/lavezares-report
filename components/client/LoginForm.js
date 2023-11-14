@@ -121,7 +121,7 @@ const LoginForm = () => {
           name="password"
           value={formData?.password}
           onChange={handleChange}
-          onBlur={handleValidateRquired}
+          onBlur={handleValidation}
           error={error?.password}
           placeholder="********"
           className={
