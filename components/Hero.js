@@ -12,7 +12,7 @@ const Hero = () => {
         style={{ objectFit: "cover" }}
         alt="Holy Mary statue"
       />
-      <section className="absolute inset-0 bg-black-trans-35 h-full flex flex-col justify-center items-center text-white">
+      <section className="absolute inset-0 bg-black/40 h-full flex flex-col justify-center items-center text-white">
         <section className="max-w-5xl mx-auto flex flex-col gap-20">
           <section className="pt-20">
             <h1 className="font-bold lg:text-7xl text-5xl text-center mb-4">

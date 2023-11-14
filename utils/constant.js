@@ -10,6 +10,17 @@ export const UPLOAD_FILES = {
       } file${this.image.maxFileCount > 1 ? "s" : ""}`;
     },
   },
+  profile: {
+    image: {
+      maxFileSize: "4MB",
+      maxFileCount: 1,
+    },
+    getMessage: function () {
+      return `Image up to ${this.image.maxFileSize}, max ${
+        this.image.maxFileCount
+      } file${this.image.maxFileCount > 1 ? "s" : ""}`;
+    },
+  },
   mediaPost: {
     image: { maxFileSize: "10MB", maxFileCount: 10 },
     video: { maxFileSize: "256MB", maxFileCount: 1 },
@@ -24,3 +35,6 @@ export const UPLOAD_FILES = {
     },
   },
 };
+
+export const MAX_AGE = 1000 * 60 * 60 * 24 * 1; // 1 day
+export const AUTH_TOKEN = "user-auth-token"

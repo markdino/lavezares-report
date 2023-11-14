@@ -51,11 +51,6 @@ const Dashboard = () => {
     router.push(`/report/${id}`);
   };
 
-  const handleEdit = (event, id) => {
-    event.stopPropagation();
-    router.push(`/report/${id}/edit`);
-  };
-
   const handleDelete = (event, id) => {
     event.stopPropagation();
     setDeleteId(id);
@@ -256,14 +251,13 @@ const Dashboard = () => {
                           </td>
                           <td className={tdClassName}>
                             <section className="flex gap-3">
-                              <IconButton
-                                color="light-blue"
-                                onClick={(e) => handleEdit(e, report._id)}
-                              >
-                                <span>
-                                  <EditIcon />
-                                </span>
-                              </IconButton>
+                              <Link href={`/report/${report._id}/edit`}>
+                                <IconButton color="light-blue">
+                                  <span>
+                                    <EditIcon />
+                                  </span>
+                                </IconButton>
+                              </Link>
                               <IconButton
                                 color="red"
                                 onClick={(e) => handleDelete(e, report._id)}

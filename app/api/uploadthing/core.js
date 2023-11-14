@@ -4,7 +4,7 @@ import { UPLOAD_FILES } from "@/utils/constant";
 
 export const utapi = new UTApi();
 
-const { imageUploader, mediaPost } = UPLOAD_FILES;
+const { imageUploader, mediaPost, profile } = UPLOAD_FILES;
 const f = createUploadthing();
 
 const auth = (req) => ({ id: "fakeId" }); // Fake auth function
@@ -35,7 +35,14 @@ export const ourFileRouter = {
 
       console.log("file url", file.url);
     }),
-
+  profile: f({
+    image: {
+      maxFileSize: profile.image.maxFileSize,
+      maxFileCount: profile.image.maxFileCount,
+    },
+  })
+    .middleware((req) => auth(req))
+    .onUploadComplete((data) => console.log("file", data)),
   mediaPost: f({
     image: {
       maxFileSize: mediaPost.image.maxFileSize,
