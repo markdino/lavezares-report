@@ -297,7 +297,10 @@ const Dashboard = () => {
                             </td>
                             <td className={tdClassName}>
                               <section className="flex gap-3">
-                                <Link href={`/report/${report._id}/edit`}>
+                                <Link
+                                  href={`/report/${report._id}/edit`}
+                                  onClick={(e) => e.stopPropagation()}
+                                >
                                   <IconButton color="light-blue">
                                     <span>
                                       <EditIcon />
