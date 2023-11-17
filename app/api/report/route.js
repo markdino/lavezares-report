@@ -18,7 +18,7 @@ export const GET = async (req) => {
 
   try {
     const { _id, isAdmin } = verify(authToken, secret);
-    const dataQuery = isAdmin ? {} : { _id };
+    const dataQuery = isAdmin ? {} : { creator: _id };
     try {
       await connectToDB();
       // Find all reports
