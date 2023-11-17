@@ -17,6 +17,7 @@ import { isValidEmail } from "@/utils/validation";
 import { checkRegisteredEmail, signupUser } from "@/services/api";
 import { extractFields } from "@/utils/helper";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/store/userStore";
 const CRED = "cred";
 const INFO = "info";
 
@@ -31,6 +32,7 @@ const SignupForm = () => {
   const credTabRef = useRef(null);
   const infoTabRef = useRef(null);
   const router = useRouter();
+  const loginUser = useUserStore((state) => state.loginUser);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -151,11 +153,12 @@ const SignupForm = () => {
           loading: true,
           error: null,
         })),
-      onSuccess: () => {
+      onSuccess: (data) => {
         setFormStatus((prevState) => ({
           ...prevState,
           submitted: true,
         }));
+        loginUser(data);
         router.push("/dashboard");
       },
       onFailed: ({ data }) => {

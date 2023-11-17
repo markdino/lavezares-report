@@ -16,7 +16,11 @@ const ProfileUploader = ({
   onError = () => {},
   onChange = () => {},
   onDelete = () => {},
+  height= 28,
+  width= 28,
   className,
+  defaultSrc,
+  readOnly,
 }) => {
   const [hiddenInput, setHiddenInput] = useState(null);
   const [photo, setPhoto] = useState(null);
@@ -63,11 +67,11 @@ const ProfileUploader = ({
 
   return (
     <>
-      <section className={classNames("relative flex w-28 h-28", className)}>
+      <section className={classNames(`relative flex w-${width} h-${height}`, className)}>
         <Image
           fill
           sizes="(max-width: 112px) 100vw, 50vw, 33vw"
-          src={photo?.url || profilePlaceholder.src}
+          src={defaultSrc || photo?.url || profilePlaceholder.src}
           placeholder="blur"
           blurDataURL={profilePlaceholder.src}
           onLoad={() => setIsLoading(false)}
@@ -84,22 +88,24 @@ const ProfileUploader = ({
             <Spinner className="h-8 w-8" />
           </section>
         ) : (
-          <section className="absolute -right-2 -top-2">
-            <IconButton
-              variant="text"
-              color="blue-gray"
-              title={photo ? "Remove photo" : "Add photo"}
-              onClick={photo ? handleDelete : handleClick}
-            >
-              <span>
-                {photo ? (
-                  <DisabledByDefaultIcon className="hover:text-red-900" />
-                ) : (
-                  <AddAPhotoIcon />
-                )}
-              </span>
-            </IconButton>
-          </section>
+          !readOnly && (
+            <section className="absolute -right-2 -top-2">
+              <IconButton
+                variant="text"
+                color="blue-gray"
+                title={photo ? "Remove photo" : "Add photo"}
+                onClick={photo ? handleDelete : handleClick}
+              >
+                <span>
+                  {photo ? (
+                    <DisabledByDefaultIcon className="hover:text-red-900" />
+                  ) : (
+                    <AddAPhotoIcon />
+                  )}
+                </span>
+              </IconButton>
+            </section>
+          )
         )}
       </section>
       <section ref={hiddenElem} className="hidden">

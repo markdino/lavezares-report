@@ -4,6 +4,7 @@ import { Button, Input, Spinner, Typography } from "@/components/client";
 import { signinUser } from "@/services/api";
 import { isValidEmail } from "@/utils/validation";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/store/userStore";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const LoginForm = () => {
   const [formStatus, setFormStatus] = useState({});
 
   const router = useRouter();
+  const loginUser = useUserStore(state => state.loginUser)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +52,6 @@ const LoginForm = () => {
 
     if (isEmpty || hasError) return;
 
-    console.log(formData)
     signinUser({
       userData: formData,
       onSubmit: () =>
@@ -59,11 +60,12 @@ const LoginForm = () => {
           loading: true,
           error: null,
         })),
-      onSuccess: () => {
+      onSuccess: (data) => {
         setFormStatus((prevState) => ({
           ...prevState,
           submitted: true,
         }));
+        loginUser(data)
         router.push("/dashboard");
       },
       onFailed: ({ data }) => {

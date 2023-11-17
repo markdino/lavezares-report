@@ -8,17 +8,32 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import Link from "next/link";
+import { useUserStore } from "@/store/userStore";
+import { authUser, signoutUser } from "@/services/api";
+import { ProfileUploader } from "./client";
 
 const StickyNavbar = () => {
   const [openNav, setOpenNav] = useState(false);
   const LOGIN = "Log In";
   const SIGNIN = "Sign Up";
+  const LOGOUT = "Log Out";
+  const { isLogin, loginUser, logoutUser, image } = useUserStore();
+
+  const handleLogout = () => {
+    signoutUser({
+      onSuccess: logoutUser,
+      onFailed: logoutUser,
+    });
+  };
 
   useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
+    authUser({
+      onSuccess: (data) => loginUser(data),
+    });
   }, []);
 
   const navList = (
@@ -53,14 +68,16 @@ const StickyNavbar = () => {
           Blocks
         </a>
       </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <Link href="/dashboard">Dashboard</Link>
-      </Typography>
+      {isLogin && (
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
+          <Link href="/dashboard">Dashboard</Link>
+        </Typography>
+      )}
     </ul>
   );
 
@@ -73,24 +90,47 @@ const StickyNavbar = () => {
         <div className="flex items-center gap-4">
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-x-1">
-            <Link href="/login">
-              <Button
-                variant="text"
-                size="sm"
-                className="hidden lg:inline-block"
-              >
-                <span>{LOGIN}</span>
-              </Button>
-            </Link>
-            <Link href="/login?form=signup">
-              <Button
-                variant="gradient"
-                size="sm"
-                className="hidden lg:inline-block"
-              >
-                <span>{SIGNIN}</span>
-              </Button>
-            </Link>
+            {isLogin ? (
+              <>
+                <Button
+                  variant="text"
+                  size="sm"
+                  className="hidden lg:inline-block"
+                  onClick={handleLogout}
+                >
+                  <span>{LOGOUT}</span>
+                </Button>
+                <section>
+                  <ProfileUploader
+                    width={10}
+                    height={10}
+                    defaultSrc={image?.url}
+                    readOnly
+                  />
+                </section>
+              </>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button
+                    variant="text"
+                    size="sm"
+                    className="hidden lg:inline-block"
+                  >
+                    <span>{LOGIN}</span>
+                  </Button>
+                </Link>
+                <Link href="/login?form=signup">
+                  <Button
+                    variant="gradient"
+                    size="sm"
+                    className="hidden lg:inline-block"
+                  >
+                    <span>{SIGNIN}</span>
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
           <IconButton
             variant="text"
@@ -134,12 +174,22 @@ const StickyNavbar = () => {
       <MobileNav open={openNav} className="z-50">
         {navList}
         <div className="flex items-center gap-x-1">
-          <Button fullWidth variant="text" size="sm" className="">
-            <span>{LOGIN}</span>
-          </Button>
-          <Button fullWidth variant="gradient" size="sm" className="">
-            <span>{SIGNIN}</span>
-          </Button>
+          {isLogin ? (
+            <>
+              <Button variant="text" size="sm" onClick={handleLogout}>
+                <span>{LOGOUT}</span>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button fullWidth variant="text" size="sm">
+                <span>{LOGIN}</span>
+              </Button>
+              <Button fullWidth variant="gradient" size="sm">
+                <span>{SIGNIN}</span>
+              </Button>
+            </>
+          )}
         </div>
       </MobileNav>
     </Navbar>

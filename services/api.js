@@ -153,6 +153,38 @@ export const signinUser = ({
     });
 };
 
+export const authUser = ({
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .get("/api/user/me")
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
+
+export const signoutUser = ({
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .get("/api/user/signout")
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
+
 export const checkRegisteredEmail = ({
   email,
   onSubmit = () => {},

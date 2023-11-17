@@ -1,11 +1,19 @@
+"use client"
 import { Card, Typography, ReportForm } from "@/components/client";
+import { useUserStore } from "@/store/userStore";
 
 const CreateReport = () => {
+  const { _id, position, firstName, middleName, lastName } = useUserStore();
   const defaultFormData = {
     reportDate: new Date(),
     reportTime: new Date(),
     crimeDate: new Date(),
     crimeTime: new Date(),
+    creator: _id,
+    reporterPosition: position,
+    reporterFirstName: firstName,
+    reporterMiddleName: middleName,
+    reporterLastName: lastName,
   };
 
   return (
