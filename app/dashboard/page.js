@@ -11,6 +11,7 @@ import {
   Spinner,
   Button,
   DeleteModal,
+  Chip,
 } from "@/components/client";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -43,6 +44,7 @@ const Dashboard = () => {
     "Charges",
     "Arrested",
     "Suspect",
+    "Creator type",
     "Incident date",
     "Report date",
     "",
@@ -154,7 +156,10 @@ const Dashboard = () => {
                     {TABLE_HEAD.map((head) => (
                       <th
                         key={head}
-                        className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+                        className={classNames(
+                          "border-y border-blue-gray-100 bg-blue-gray-50/50 p-4",
+                          { hidden: !isAdmin && head === "Creator type" }
+                        )}
                       >
                         <Typography
                           variant="small"
@@ -250,6 +255,31 @@ const Dashboard = () => {
                                 {report.suspectFirstName || ""}{" "}
                                 {report.suspectLastName || ""}
                               </Typography>
+                            </td>
+                            <td
+                              className={classNames(tdClassName, {
+                                hidden: !isAdmin,
+                              })}
+                            >
+                              <Chip
+                                variant="ghost"
+                                color={
+                                  !report?.creator
+                                    ? "blue-gray"
+                                    : report.creator.isAdmin
+                                    ? "deep-purple"
+                                    : "light-blue"
+                                }
+                                size="sm"
+                                value={
+                                  !report?.creator
+                                    ? "Guest"
+                                    : report.creator.isAdmin
+                                    ? "Admin"
+                                    : "Regular"
+                                }
+                                className="rounded-full max-w-fit mx-auto"
+                              />
                             </td>
                             <td className={tdClassName}>
                               <Typography className="max-w-[160px] truncate">

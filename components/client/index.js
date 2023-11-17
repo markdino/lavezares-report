@@ -22,6 +22,7 @@ import {
   TabsBody,
   Tab,
   TabPanel,
+  Chip,
 } from "@material-tailwind/react";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -59,6 +60,7 @@ export {
   TabsBody,
   Tab,
   TabPanel,
+  Chip,
   DemoContainer,
   AdapterDayjs,
   LocalizationProvider,
