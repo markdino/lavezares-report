@@ -1,8 +1,10 @@
-import Report from "@/model/report"
-import { connectToDB } from "@/utils/database"
+import Report from "@/model/report";
+import { connectToDB } from "@/utils/database";
+import { removeEmptyProperties } from "@/utils/helper";
 
 export const POST = async (req) => {
-  const reportData = await req.json();
+  const payload = await req.json();
+  const reportData = removeEmptyProperties(payload);
 
   try {
     await connectToDB();
