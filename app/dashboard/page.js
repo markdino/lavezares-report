@@ -161,7 +161,7 @@ const Dashboard = () => {
                           color="blue-gray"
                           className={classNames(
                             "font-normal leading-none opacity-70",
-                            { "lg:w-40": head }
+                            { "lg:max-w-[160px]": head }
                           )}
                         >
                           {head}
@@ -218,7 +218,7 @@ const Dashboard = () => {
                             className="hover:bg-light-blue-50 cursor-pointer"
                           >
                             <td className={tdClassName}>
-                              <Typography className="font-bold w-40 truncate">
+                              <Typography className="font-bold max-w-[160px] truncate">
                                 {report.reporterPosition || ""}{" "}
                                 {report.reporterFirstName || ""}{" "}
                                 {report.reporterMiddleName || ""}{" "}
@@ -226,40 +226,40 @@ const Dashboard = () => {
                               </Typography>
                             </td>
                             <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
+                              <Typography className="max-w-[160px] truncate">
                                 {report.incidentLocation}
                               </Typography>
                             </td>
                             <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
+                              <Typography className="max-w-[160px] truncate">
                                 {report.incidentDetails}
                               </Typography>
                             </td>
                             <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
+                              <Typography className="max-w-[160px] truncate">
                                 {report.suspectCharges}
                               </Typography>
                             </td>
                             <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
+                              <Typography className="max-w-[160px] truncate">
                                 {report.reportArrested}
                               </Typography>
                             </td>
                             <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
+                              <Typography className="max-w-[160px] truncate">
                                 {report.suspectFirstName || ""}{" "}
                                 {report.suspectLastName || ""}
                               </Typography>
                             </td>
                             <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
+                              <Typography className="max-w-[160px] truncate">
                                 {dayjs(report.crimeDate).format("L")}
                                 {" - "}
                                 {dayjs(report.crimeTime).format("LT")}
                               </Typography>
                             </td>
                             <td className={tdClassName}>
-                              <Typography className="w-40 truncate">
+                              <Typography className="max-w-[160px] truncate">
                                 {dayjs(report.reportDate).format("L")}
                                 {" - "}
                                 {dayjs(report.reportTime).format("LT")}
