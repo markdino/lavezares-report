@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Card,
   CardBody,
@@ -13,16 +13,21 @@ import {
   SignupForm,
 } from "@/components/client";
 import classNames from "classnames";
+import { useUserStore } from "@/store/userStore";
 
 const LOGIN = "login";
 const SIGNUP = "signup";
 
 const LoginPage = () => {
+  const isLogin = useUserStore(state => state.isLogin)
+  const router = useRouter();
   const searchParams = useSearchParams();
   const form = searchParams.get("form");
   const initForm = form === SIGNUP ? SIGNUP : LOGIN;
+
   const [type, setType] = useState(initForm);
   const [init, setInit] = useState(true);
+  
 
   const handleChangeTab = (tab) => {
     if (init) {
@@ -31,6 +36,13 @@ const LoginPage = () => {
     setType(tab);
   };
 
+  useEffect(()=>{
+    if(isLogin){
+      router.push("/dashboard")
+    }
+  },[isLogin])
+
+  if(!isLogin)
   return (
     <main className="min-h-screen px-2 lg:pt-20 pt-16">
       <Card className="w-full max-w-[24rem] mx-auto">
