@@ -1,18 +1,18 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
 const defaultData = {
-    _id: "",
+  _id: "",
   position: "",
-  firstName:"",
+  firstName: "",
   middleName: "",
   lastName: "",
   image: null,
   isAdmin: false,
   isLogin: false,
-}
+};
 
 export const useUserStore = create((set) => ({
   ...defaultData,
-  loginUser: (userData) => set({...userData, isLogin: true}),
+  loginUser: (userData) => set({ ...userData, isLogin: true }),
   logoutUser: () => set(defaultData),
-}))
+}));
