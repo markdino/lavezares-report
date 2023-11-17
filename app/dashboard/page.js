@@ -23,6 +23,7 @@ import { deleteReport, getAllReports } from "@/services/api";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useUserStore } from "@/store/userStore";
+import classNames from "classnames";
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
@@ -34,7 +35,7 @@ const Dashboard = () => {
   const [deleteId, setDeleteId] = useState(null);
 
   const router = useRouter();
-  const isLogin = useUserStore((state) => state.isLogin);
+  const { isLogin, isAdmin } = useUserStore();
   const TABLE_HEAD = [
     "Reported by",
     "Location",
@@ -123,7 +124,7 @@ const Dashboard = () => {
             >
               <div className="mb-4">
                 <Typography variant="h5" color="blue-gray">
-                  List of Reports
+                  {`List of ${isAdmin ? "All" : "My"} Reports`}
                 </Typography>
               </div>
               <section className="flex gap-2">
@@ -158,7 +159,10 @@ const Dashboard = () => {
                         <Typography
                           variant="small"
                           color="blue-gray"
-                          className="font-normal leading-none opacity-70"
+                          className={classNames(
+                            "font-normal leading-none opacity-70",
+                            { "lg:w-40": head }
+                          )}
                         >
                           {head}
                         </Typography>
