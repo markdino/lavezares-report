@@ -54,6 +54,10 @@ const ReportSchema = new Schema({
   reporterPosition: {
     type: String,
   },
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
   suspectCharges: {
     type: String,
   },
