@@ -37,6 +37,7 @@ import DeleteModal from "./DeleteModal";
 import MediaFile from "../MediaFile";
 import SignupForm from "./SignupForm";
 import ProfileUploader from "./ProfileUploader";
+import ReportsTable from "./ReportsTable";
 
 export {
   Alert,
@@ -74,4 +75,5 @@ export {
   DeleteModal,
   MediaFile,
   ProfileUploader,
+  ReportsTable,
 };
