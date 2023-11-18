@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 
 export const GET = async (req) => {
   const cookieStore = cookies();
-  const authToken = cookieStore.get(AUTH_TOKEN).value;
+  const authToken = cookieStore.get(AUTH_TOKEN)?.value;
   const secret = process.env.JWT_KEY || "";
 
   if (!authToken) {
