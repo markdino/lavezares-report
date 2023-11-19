@@ -102,6 +102,22 @@ export const deleteFile = ({
     });
 };
 
+export const getAllUsers = ({
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .get("/api/user")
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
+
 export const createUser = ({
   userData,
   onSubmit = () => {},
