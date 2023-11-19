@@ -7,6 +7,7 @@ import {
   Spinner,
   DeleteModal,
   Chip,
+  Tooltip,
 } from "@/components/client";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -120,9 +121,7 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
               <Alert color="red" variant="ghost" className="my-4 mx-3">
                 <section className="flex gap-2">
                   <WarningRoundedIcon />
-                  <Typography>
-                    {error}
-                  </Typography>
+                  <Typography>{error}</Typography>
                 </section>
               </Alert>
             </section>
@@ -223,20 +222,24 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
                           href={`/report/${report._id}/edit`}
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <IconButton color="light-blue">
+                          <Tooltip content="Edit" placement="bottom">
+                            <IconButton color="light-blue">
+                              <span>
+                                <EditIcon />
+                              </span>
+                            </IconButton>
+                          </Tooltip>
+                        </Link>
+                        <Tooltip content="Delete" placement="bottom">
+                          <IconButton
+                            color="red"
+                            onClick={(e) => handleDelete(e, report._id)}
+                          >
                             <span>
-                              <EditIcon />
+                              <DeleteForeverIcon />
                             </span>
                           </IconButton>
-                        </Link>
-                        <IconButton
-                          color="red"
-                          onClick={(e) => handleDelete(e, report._id)}
-                        >
-                          <span>
-                            <DeleteForeverIcon />
-                          </span>
-                        </IconButton>
+                        </Tooltip>
                       </section>
                     </td>
                   </tr>
