@@ -217,3 +217,21 @@ export const checkRegisteredEmail = ({
       onFailed(response);
     });
 };
+
+export const updateUser = ({
+  userId,
+  userUpdatedData,
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .patch(`/api/user/${userId}`, userUpdatedData)
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
