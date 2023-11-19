@@ -23,6 +23,7 @@ import {
   Tab,
   TabPanel,
   Chip,
+  Tooltip,
 } from "@material-tailwind/react";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -38,6 +39,7 @@ import MediaFile from "../MediaFile";
 import SignupForm from "./SignupForm";
 import ProfileUploader from "./ProfileUploader";
 import ReportsTable from "./ReportsTable";
+import ManageUsers from "./ManageUsers";
 
 export {
   Alert,
@@ -62,6 +64,7 @@ export {
   Tab,
   TabPanel,
   Chip,
+  Tooltip,
   DemoContainer,
   AdapterDayjs,
   LocalizationProvider,
@@ -76,4 +79,5 @@ export {
   MediaFile,
   ProfileUploader,
   ReportsTable,
+  ManageUsers,
 };

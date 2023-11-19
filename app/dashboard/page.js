@@ -9,44 +9,83 @@ import {
   IconButton,
   Button,
   ReportsTable,
+  Tooltip,
+  ManageUsers,
 } from "@/components/client";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import AutorenewRoundedIcon from "@mui/icons-material/AutorenewRounded";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import SummarizeIcon from "@mui/icons-material/Summarize";
 import { useRouter } from "next/navigation";
-import { getAllReports } from "@/services/api";
+import { getAllReports, getAllUsers } from "@/services/api";
 import Link from "next/link";
 import { useUserStore } from "@/store/userStore";
 
 const Dashboard = () => {
-  const [data, setData] = useState(null);
+  const REPORTS = "reports";
+  const USERS = "users";
+  const GENERIC_ERROR = "Sorry, something went wrong. Please try again.";
+
+  const [reportsData, setReportsData] = useState(null);
+  const [usersData, setUsersData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [form, setForm] = useState(REPORTS);
 
   const router = useRouter();
   const { isLogin, isAdmin } = useUserStore();
 
-  const handleGetAllReport = () => {
+  const handleGetAllReports = () => {
     getAllReports({
-      onSubmit: () => setIsLoading(true),
+      onSubmit: () => {
+        setError(null);
+        setIsLoading(true);
+      },
       onSuccess: (data) => {
         setIsLoading(false);
-        setData(data);
+        setReportsData(data);
       },
       onFailed: ({ data }) => {
         setIsLoading(false);
-        setError(
-          data?.error || "Sorry, something went wrong. Please try again."
-        );
+        setError(data?.error || GENERIC_ERROR);
       },
     });
   };
+
+  const handleGetAllUsers = () => {
+    getAllUsers({
+      onSubmit: () => {
+        setError(null);
+        setIsLoading(true);
+      },
+      onSuccess: (data) => {
+        setIsLoading(false);
+        setUsersData(data);
+      },
+      onFailed: ({ data }) => {
+        setIsLoading(false);
+        setError(data?.error || GENERIC_ERROR);
+      },
+    });
+  };
+
+  const fetchData = () => {
+    if (form === USERS) {
+      handleGetAllUsers();
+    } else {
+      handleGetAllReports();
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [form]);
 
   useEffect(() => {
     if (!isLogin) {
       router.push("/login");
       return;
     }
-    handleGetAllReport();
   }, [isLogin]);
 
   if (isLogin)
@@ -61,36 +100,81 @@ const Dashboard = () => {
             >
               <div className="mb-4">
                 <Typography variant="h5" color="blue-gray">
-                  {`List of ${isAdmin ? "All" : "My"} Reports`}
+                  {form === USERS
+                    ? "Manage Users"
+                    : `List of ${isAdmin ? "All" : "My"} Reports`}
                 </Typography>
               </div>
-              <section className="flex gap-2">
-                <IconButton
-                  variant="text"
-                  onClick={handleGetAllReport}
-                  size="lg"
-                  color="blue-gray"
-                  disabled={isLoading}
-                >
-                  <span>
-                    <AutorenewRoundedIcon />
-                  </span>
-                </IconButton>
-                <Link href="/report/create">
-                  <Button color="green" className="flex items-center gap-1">
-                    <span className="hidden sm:block">Create New</span>
-                    <NoteAddIcon />
-                  </Button>
-                </Link>
+              <section className="flex gap-1">
+                {isAdmin &&
+                  (form === USERS ? (
+                    <Tooltip content="List of reports" placement="bottom">
+                      <IconButton
+                        variant="text"
+                        onClick={() => setForm(REPORTS)}
+                        size="lg"
+                        color="blue-gray"
+                        disabled={isLoading}
+                      >
+                        <span>
+                          <SummarizeIcon />
+                        </span>
+                      </IconButton>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip content="Manage Users" placement="bottom">
+                      <IconButton
+                        variant="text"
+                        onClick={() => setForm(USERS)}
+                        size="lg"
+                        color="blue-gray"
+                        disabled={isLoading}
+                      >
+                        <span>
+                          <ManageAccountsIcon />
+                        </span>
+                      </IconButton>
+                    </Tooltip>
+                  ))}
+                <Tooltip content="Refresh" placement="bottom">
+                  <IconButton
+                    variant="text"
+                    onClick={fetchData}
+                    size="lg"
+                    color="blue-gray"
+                    disabled={isLoading}
+                  >
+                    <span>
+                      <AutorenewRoundedIcon />
+                    </span>
+                  </IconButton>
+                </Tooltip>
+                {form === REPORTS && (
+                  <Link href="/report/create">
+                    <Button color="green" className="flex items-center gap-1">
+                      <span className="hidden sm:block">Create New</span>
+                      <NoteAddIcon />
+                    </Button>
+                  </Link>
+                )}
               </section>
             </CardHeader>
             <CardBody className="overflow-auto px-0">
-              <ReportsTable
-                data={data}
-                setData={setData}
-                isLoading={isLoading}
-                error={error}
-              />
+              {form === USERS ? (
+                <ManageUsers
+                  data={usersData}
+                  setData={setUsersData}
+                  isLoading={isLoading}
+                  error={error}
+                />
+              ) : (
+                <ReportsTable
+                  data={reportsData}
+                  setData={setReportsData}
+                  isLoading={isLoading}
+                  error={error}
+                />
+              )}
             </CardBody>
             <CardFooter></CardFooter>
           </Card>
