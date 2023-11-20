@@ -9,7 +9,7 @@ import { verify } from "jsonwebtoken";
 export const GET = async () => {
   const secret = process.env.JWT_KEY || "";
   const cookieStore = cookies();
-  const authToken = cookieStore.get(AUTH_TOKEN).value;
+  const authToken = cookieStore.get(AUTH_TOKEN)?.value;
 
   if (!authToken) {
     return new Response(JSON.stringify({ error: "Unauthrorized user" }), {

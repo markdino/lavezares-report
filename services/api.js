@@ -102,6 +102,22 @@ export const deleteFile = ({
     });
 };
 
+export const getAllUsers = ({
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .get("/api/user")
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
+
 export const createUser = ({
   userData,
   onSubmit = () => {},
@@ -194,6 +210,24 @@ export const checkRegisteredEmail = ({
   onSubmit();
   axios
     .get(`/api/user/check?email=${email}`)
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};
+
+export const updateUser = ({
+  userId,
+  userUpdatedData,
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .patch(`/api/user/${userId}`, userUpdatedData)
     .then(({ data }) => {
       onSuccess(data);
     })
