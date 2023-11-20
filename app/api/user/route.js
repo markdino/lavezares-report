@@ -1,14 +1,13 @@
-import Report from "@/model/report";
 import User from "@/model/user";
 import { AUTH_TOKEN } from "@/utils/constant";
 import { connectToDB } from "@/utils/database";
 import { verify } from "jsonwebtoken";
 import { cookies } from "next/headers";
 
-export const GET = async (req) => {
+export const GET = async () => {
+  const secret = process.env.JWT_KEY || "";
   const cookieStore = cookies();
   const authToken = cookieStore.get(AUTH_TOKEN)?.value;
-  const secret = process.env.JWT_KEY || "";
 
   if (!authToken) {
     return new Response(JSON.stringify({ error: "Unauthrorized user" }), {
@@ -17,21 +16,25 @@ export const GET = async (req) => {
   }
 
   try {
-    const { _id, isAdmin } = verify(authToken, secret);
-    const dataQuery = isAdmin ? {} : { creator: _id };
+    const { isAdmin } = verify(authToken, secret);
+
+    if (!isAdmin) {
+      return new Response(
+        JSON.stringify({ error: "Access limited to admin users only" }),
+        {
+          status: 403,
+        }
+      );
+    }
+
     try {
       await connectToDB();
-      // Find all reports
-      const reports = await Report.find(dataQuery)
-        .select("-__v -reporterContact -files")
-        .populate({
-          path: "creator",
-          select: "isAdmin",
-          model: User,
-        });
-      return new Response(JSON.stringify(reports), { status: 200 });
+      // Find all users
+      const users = await User.find().select("-__v");
+
+      return new Response(JSON.stringify(users), { status: 200 });
     } catch (error) {
-      return new Response("Failed to fetch reports", { status: 500 });
+      return new Response("Failed to fetch users", { status: 500 });
     }
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
