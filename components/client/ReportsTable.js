@@ -19,12 +19,15 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { useUserStore } from "@/store/userStore";
 import classNames from "classnames";
+import { sortArrayOfObjects } from "@/utils/helper";
 
 const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalIsLoading, setModalIsLoading] = useState(false);
   const [modalError, setModalError] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+
+  const reportsData = sortArrayOfObjects(data, "reportTime", "desc");
 
   const router = useRouter();
   const { isAdmin } = useUserStore();
@@ -126,8 +129,8 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
               </Alert>
             </section>
           ) : (
-            data &&
-            (data.length <= 0 ? (
+            reportsData &&
+            (reportsData.length <= 0 ? (
               <section className="absolute flex w-full">
                 <Alert color="teal" variant="ghost" className="my-4 mx-3">
                   <section className="flex gap-2">
@@ -137,7 +140,7 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
                 </Alert>
               </section>
             ) : (
-              data.map((report) => (
+              reportsData.map((report) => (
                 <>
                   <tr
                     onClick={() => handleView(report._id)}
