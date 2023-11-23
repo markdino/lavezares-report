@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   Alert,
   IconButton,
-  ProfileUploader,
   Spinner,
   Tooltip,
   Typography,
@@ -10,39 +9,10 @@ import {
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
-import classNames from "classnames";
 import { useUserStore } from "@/store/userStore";
 import { updateUser } from "@/services/api";
 import { sortArrayOfObjects } from "@/utils/helper";
-
-const UserItem = ({ name, email, imageSrc, selected, disabled, onClick }) => {
-  return (
-    <section
-      onClick={disabled ? () => {} : onClick}
-      className={classNames("flex gap-2 rounded-full", {
-        "hover:bg-light-blue-50 cursor-pointer": !disabled && !selected,
-        "bg-light-blue-100 cursor-pointer": selected,
-        "opacity-30": disabled,
-      })}
-    >
-      <ProfileUploader width={10} height={10} defaultSrc={imageSrc} readOnly />
-      <section>
-        <Typography
-          color="blue-gray"
-          className="max-w-[160px] truncate font-semibold text-sm"
-        >
-          {name}
-        </Typography>
-        <Typography
-          color="blue-gray"
-          className="text-sm max-w-[160px] truncate"
-        >
-          {email}
-        </Typography>
-      </section>
-    </section>
-  );
-};
+import UserItem from "@/components/UserItem";
 
 const ManageUsers = ({ data = [], setData = () => {}, isLoading, error }) => {
   const [selectedUser, setSelectedUser] = useState(null);
