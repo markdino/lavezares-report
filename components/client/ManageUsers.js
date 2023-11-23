@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Alert,
+  DeleteModal,
   IconButton,
   Spinner,
   Tooltip,
@@ -10,14 +11,21 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 import { useUserStore } from "@/store/userStore";
-import { updateUser } from "@/services/api";
+import { deleteUser, updateUser } from "@/services/api";
 import { sortArrayOfObjects } from "@/utils/helper";
 import UserItem from "@/components/UserItem";
 
 const ManageUsers = ({ data = [], setData = () => {}, isLoading, error }) => {
+  const defaultModalValue = {
+    error: null,
+    item: null,
+    isLoading: false,
+  };
+
   const [selectedUser, setSelectedUser] = useState(null);
   const [internalIsLoading, setInternalIsLoading] = useState(false);
   const [internalError, setInternalError] = useState(null);
+  const [modalState, setModalState] = useState(defaultModalValue);
 
   const PROMOTE = "promote";
   const DEMOTE = "demote";
@@ -59,6 +67,31 @@ const ManageUsers = ({ data = [], setData = () => {}, isLoading, error }) => {
     });
   };
 
+  const handleConfirmDelete = () => {
+    if (!modalState.item) return;
+
+    deleteUser({
+      userId: modalState.item,
+      onSubmit: () => {
+        setModalState((prevState) => ({ ...prevState, isLoading: true }));
+      },
+      onSuccess: (data) => {
+        setModalState(defaultModalValue);
+        setData((prevState) =>
+          prevState.filter((user) => user._id !== data._id)
+        );
+      },
+      onFailed: ({ status, data }) => {
+        console.log({ error: data });
+        setModalState((prevState) => ({
+          ...prevState,
+          isLoading: false,
+          error: { status, message: data?.error || "Failed to delete user!" },
+        }));
+      },
+    });
+  };
+
   return (
     <>
       <section className="flex p-5">
@@ -82,6 +115,12 @@ const ManageUsers = ({ data = [], setData = () => {}, isLoading, error }) => {
                     user._id === selectedUser?._id
                       ? setSelectedUser(null)
                       : setSelectedUser(user)
+                  }
+                  onClose={() =>
+                    setModalState((prevState) => ({
+                      ...prevState,
+                      item: user._id,
+                    }))
                   }
                   selected={user._id === selectedUser?._id}
                   disabled={user._id === userId}
@@ -143,6 +182,12 @@ const ManageUsers = ({ data = [], setData = () => {}, isLoading, error }) => {
                       ? setSelectedUser(null)
                       : setSelectedUser(user)
                   }
+                  onClose={() =>
+                    setModalState((prevState) => ({
+                      ...prevState,
+                      item: user._id,
+                    }))
+                  }
                   selected={user._id === selectedUser?._id}
                   disabled={user._id === userId}
                 />
@@ -162,6 +207,14 @@ const ManageUsers = ({ data = [], setData = () => {}, isLoading, error }) => {
             </Alert>
           </section>
         ))}
+      <DeleteModal
+        open={modalState.item}
+        loading={modalState.isLoading}
+        error={modalState.error}
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setModalState(defaultModalValue)}
+        itemName="user"
+      />
     </>
   );
 };
