@@ -95,10 +95,10 @@ const ReportForm = ({ defaultFormData = {}, readOnly, action = "" }) => {
         reportId: formData._id,
         reportData: formData,
         onSubmit: () => setStatus("loading"),
-        onSuccess: (data) => {
+        onSuccess: () => {
           setStatus("success");
         },
-        onFailed: (response) => {
+        onFailed: () => {
           setStatus("failed");
         },
       });
@@ -106,11 +106,11 @@ const ReportForm = ({ defaultFormData = {}, readOnly, action = "" }) => {
       createReport({
         reportData: formData,
         onSubmit: () => setStatus("loading"),
-        onSuccess: (data) => {
+        onSuccess: () => {
           setStatus("success");
           handleResetForm();
         },
-        onFailed: (response) => {
+        onFailed: () => {
           setStatus("failed");
         },
       });
