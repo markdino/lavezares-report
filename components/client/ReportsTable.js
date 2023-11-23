@@ -258,6 +258,7 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
         error={modalError}
         onConfirm={handleConfirmDelete}
         onCancel={handleModalCancel}
+        itemName="report"
       />
     </>
   );
