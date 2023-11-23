@@ -235,3 +235,20 @@ export const updateUser = ({
       onFailed(response);
     });
 };
+
+export const deleteUser = ({
+  userId,
+  onSubmit = () => {},
+  onSuccess = () => {},
+  onFailed = () => {},
+}) => {
+  onSubmit();
+  axios
+    .delete(`/api/user/${userId}`)
+    .then(({ data }) => {
+      onSuccess(data);
+    })
+    .catch(({ response }) => {
+      onFailed(response);
+    });
+};

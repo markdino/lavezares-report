@@ -31,11 +31,13 @@ export const removeEmptyProperties = (obj) => {
 
 export const sortArrayOfObjects = (arr, sortBy, sortOrder = "asc") => {
   let error;
-  if (!Array.isArray(arr) || arr.length === 0 || typeof sortBy !== "string") {
+  if (!Array.isArray(arr) || typeof sortBy !== "string") {
     error = "Invalid input";
     console.error("sortArrayOfObjects: ", error);
     return;
   }
+
+  if (arr.length === 0) return arr;
 
   if (!arr.every((obj) => obj.hasOwnProperty(sortBy))) {
     error = `Objects in the array do not have the key "${sortBy}"`;
