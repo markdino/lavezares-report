@@ -11,6 +11,7 @@ import {
   ReportsTable,
   Tooltip,
   ManageUsers,
+  Spinner,
 } from "@/components/client";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import AutorenewRoundedIcon from "@mui/icons-material/AutorenewRounded";
@@ -33,7 +34,7 @@ const Dashboard = () => {
   const [form, setForm] = useState(REPORTS);
 
   const router = useRouter();
-  const { isLogin, isAdmin } = useUserStore();
+  const { isLogin, isAdmin, isLoading: isCheckingUser, isVerified } = useUserStore();
 
   const handleGetAllReports = () => {
     getAllReports({
@@ -82,13 +83,20 @@ const Dashboard = () => {
   }, [form]);
 
   useEffect(() => {
-    if (!isLogin) {
+    if (isVerified && !isLogin) {
       router.push("/login");
       return;
     }
-  }, [isLogin]);
+  }, [isLogin, isVerified]);
 
-  if (isLogin)
+  if (isCheckingUser)
+    return (
+      <main className="min-h-screen w-full px-2 flex flex-col justify-center items-center">
+        <Spinner className="w-10 h-10" />
+        <Typography>Checking logged user...</Typography>
+      </main>)
+
+  if (!isCheckingUser && isLogin)
     return (
       <main className="min-h-screen w-full px-2">
         <section className="lg:pt-20 pt-16">
