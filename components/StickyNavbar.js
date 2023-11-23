@@ -6,6 +6,7 @@ import {
   Typography,
   Button,
   IconButton,
+  Spinner,
 } from "@material-tailwind/react";
 import Link from "next/link";
 import { useUserStore } from "@/store/userStore";
@@ -17,7 +18,7 @@ const StickyNavbar = () => {
   const LOGIN = "Log In";
   const SIGNIN = "Sign Up";
   const LOGOUT = "Log Out";
-  const { isLogin, loginUser, logoutUser, image } = useUserStore();
+  const { isLogin, loginUser, logoutUser, image, isLoading, setIsLoading, setIsVerified } = useUserStore();
 
   const handleLogout = () => {
     signoutUser({
@@ -32,7 +33,16 @@ const StickyNavbar = () => {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
     authUser({
-      onSuccess: (data) => loginUser(data),
+      onSubmit: () => setIsLoading(true),
+      onSuccess: (data) => {
+        setIsLoading(false)
+        setIsVerified(true)
+        loginUser(data)
+      },
+      onFailed: () => {
+        setIsLoading(false)
+        setIsVerified(true)
+      },
     });
   }, []);
 
@@ -90,7 +100,7 @@ const StickyNavbar = () => {
         <div className="flex items-center gap-4">
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-x-1">
-            {isLogin ? (
+            {isLoading? (<Spinner />) : isLogin ? (
               <>
                 <Button
                   variant="text"
