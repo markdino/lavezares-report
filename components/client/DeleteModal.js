@@ -19,14 +19,15 @@ const DeleteModal = ({
   onCancel = () => {},
   loading,
   error,
+  itemName = "Item",
 }) => {
   return (
     <Dialog open={open} size="xs">
       <DialogHeader>Delete Report</DialogHeader>
       <DialogBody className="flex flex-col gap-2">
         <section>
-          Are you sure you want to delete this report? This action cannot be
-          undone.
+          {`Are you sure you want to delete this ${itemName}? This action cannot be
+          undone.`}
         </section>
         <section>
           {error && (

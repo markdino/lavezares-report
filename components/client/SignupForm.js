@@ -54,7 +54,7 @@ const SignupForm = () => {
     setError((prevState) => ({ ...prevState, image: message }));
   };
 
-  const handleValidateEmail = (e) => {
+  const handleValidateEmail = () => {
     if (formData?.email) {
       if (!isValidEmail(formData?.email)) {
         setError((prevState) => ({ ...prevState, email: "Invalid email" }));
@@ -126,7 +126,14 @@ const SignupForm = () => {
   };
 
   const handleValidateCred = () => {
-    const hasError = error.email || error.password || error.confirmPassword;
+    if (!checkAvailability.available) {
+      handleValidateEmail();
+    }
+    const hasError =
+      error.email ||
+      error.password ||
+      error.confirmPassword ||
+      !checkAvailability.available;
     const isEmpty =
       !formData.email || !formData.password || !formData.confirmPassword;
 
@@ -427,11 +434,13 @@ const SignupForm = () => {
       <Button
         size="lg"
         className="flex items-center justify-center gap-2"
-        disabled={formStatus?.loading}
+        disabled={checkAvailability?.loading || formStatus?.loading}
         onClick={tab === CRED ? handleValidateCred : handleValidateInfo}
       >
         {tab === CRED ? "Validate" : "Sign Up"}
-        {formStatus?.loading && <Spinner className="h-4 w-4" />}
+        {(checkAvailability?.loading || formStatus?.loading) && (
+          <Spinner className="h-4 w-4" />
+        )}
       </Button>
       <Typography
         variant="small"
