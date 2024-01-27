@@ -35,9 +35,9 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
     "Reported by",
     "Location",
     "Details",
-    "Charges",
-    "Arrested",
-    "Suspect",
+    // "Charges",
+    // "Arrested",
+    // "Suspect",
     "Creator type",
     "Incident date",
     "Report date",
@@ -100,7 +100,7 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
                   variant="small"
                   color="blue-gray"
                   className={classNames("font-normal leading-none opacity-70", {
-                    "lg:max-w-[160px]": head,
+                    "lg:max-w-[170px]": head,
                   })}
                 >
                   {head}
@@ -147,7 +147,7 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
                     className="hover:bg-light-blue-50 cursor-pointer"
                   >
                     <td className={tdClassName}>
-                      <Typography className="font-bold max-w-[160px] truncate">
+                      <Typography className="font-bold max-w-[170px] truncate">
                         {report.reporterPosition || ""}{" "}
                         {report.reporterFirstName || ""}{" "}
                         {report.reporterMiddleName || ""}{" "}
@@ -155,31 +155,31 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
                       </Typography>
                     </td>
                     <td className={tdClassName}>
-                      <Typography className="max-w-[160px] truncate">
+                      <Typography className="max-w-[170px] truncate">
                         {report.incidentLocation}
                       </Typography>
                     </td>
                     <td className={tdClassName}>
-                      <Typography className="max-w-[160px] truncate">
+                      <Typography className="max-w-[170px] truncate">
                         {report.incidentDetails}
                       </Typography>
                     </td>
-                    <td className={tdClassName}>
-                      <Typography className="max-w-[160px] truncate">
+                    {/* <td className={tdClassName}>
+                      <Typography className="max-w-[170px] truncate">
                         {report.suspectCharges}
                       </Typography>
                     </td>
                     <td className={tdClassName}>
-                      <Typography className="max-w-[160px] truncate">
+                      <Typography className="max-w-[170px] truncate">
                         {report.reportArrested}
                       </Typography>
                     </td>
                     <td className={tdClassName}>
-                      <Typography className="max-w-[160px] truncate">
+                      <Typography className="max-w-[170px] truncate">
                         {report.suspectFirstName || ""}{" "}
                         {report.suspectLastName || ""}
                       </Typography>
-                    </td>
+                    </td> */}
                     <td
                       className={classNames(tdClassName, {
                         hidden: !isAdmin,
@@ -206,14 +206,14 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
                       />
                     </td>
                     <td className={tdClassName}>
-                      <Typography className="max-w-[160px] truncate">
+                      <Typography className="max-w-[170px] truncate">
                         {dayjs(report.crimeDate).format("L")}
                         {" - "}
                         {dayjs(report.crimeTime).format("LT")}
                       </Typography>
                     </td>
                     <td className={tdClassName}>
-                      <Typography className="max-w-[160px] truncate">
+                      <Typography className="max-w-[170px] truncate">
                         {dayjs(report.reportDate).format("L")}
                         {" - "}
                         {dayjs(report.reportTime).format("LT")}

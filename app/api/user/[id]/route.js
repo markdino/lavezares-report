@@ -120,6 +120,16 @@ export const DELETE = async (req, { params }) => {
           status: 404,
         });
 
+      if (user.isAdmin)
+        return new Response(
+          JSON.stringify({
+            error: "Permission denied: Cannot delete admin user",
+          }),
+          {
+            status: 403,
+          }
+        );
+
       // If user has a image, delete it from UTAPI server
       if (user.image) {
         await utapi.deleteFiles(user.image.key);
