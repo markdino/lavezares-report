@@ -10,6 +10,7 @@ const UserItem = ({
   disabled,
   onClick = () => {},
   onClose = () => {},
+  hideClose,
 }) => {
   return (
     <section
@@ -21,15 +22,17 @@ const UserItem = ({
         group: !disabled,
       })}
     >
-      <section
-        className={classNames(
-          "absolute -top-1 -right-1 text-red-800 lg:text-gray-500 lg:hover:text-red-800 lg:hidden lg:group-hover:block",
-          selected ? "block" : "hidden"
-        )}
-        onClick={onClose}
-      >
-        <CancelIcon />
-      </section>
+      {!hideClose && (
+        <section
+          className={classNames(
+            "absolute -top-1 -right-1 text-red-800 lg:text-gray-500 lg:hover:text-red-800 lg:hidden lg:group-hover:block",
+            selected ? "block" : "hidden"
+          )}
+          onClick={onClose}
+        >
+          <CancelIcon />
+        </section>
+      )}
       <ProfileUploader width={10} height={10} defaultSrc={imageSrc} readOnly />
       <section>
         <Typography

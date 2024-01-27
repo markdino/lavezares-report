@@ -42,6 +42,7 @@ export const GET = async () => {
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         maxAge: MAX_AGE,
+        expires: new Date(Date.now() + MAX_AGE * 1000),
         path: "/",
       });
 
