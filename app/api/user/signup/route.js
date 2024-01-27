@@ -5,7 +5,6 @@ import { extractFields } from "@/utils/helper";
 import { AUTH_TOKEN, MAX_AGE } from "@/utils/constant";
 import bcrypt from "bcrypt";
 
-
 export const POST = async (req) => {
   const salt = await bcrypt.genSalt(10);
   const payload = await req.json();
@@ -35,6 +34,7 @@ export const POST = async (req) => {
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: MAX_AGE,
+      expires: new Date(Date.now() + MAX_AGE * 1000),
       path: "/",
     });
 
