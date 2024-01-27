@@ -190,6 +190,7 @@ const ManageUsers = ({ data = [], setData = () => {}, isLoading, error }) => {
                   }
                   selected={user._id === selectedUser?._id}
                   disabled={user._id === userId}
+                  hideClose={user.isAdmin}
                 />
               ))
             )}
