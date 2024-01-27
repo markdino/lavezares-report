@@ -36,5 +36,5 @@ export const UPLOAD_FILES = {
   },
 };
 
-export const MAX_AGE = 1000 * 60 * 60 * 24 * 1; // 1 day
-export const AUTH_TOKEN = "user-auth-token"
+export const MAX_AGE = 60 * 60 * 24; // 1 day in seconds
+export const AUTH_TOKEN = "user-auth-token";
