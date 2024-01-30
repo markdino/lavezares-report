@@ -5,7 +5,7 @@ const SafetyInfoSection = () => {
     <section className="w-full py-28 px-10">
       <section className="text-center max-w-5xl mx-auto">
         <h2 className="font-bold lg:text-5xl text-4xl text-center mb-4">
-          HELP YOURSELF, YOUR FRIENDS AND YOUR FAMILY
+          Help Yourself, Your Friends and Your Family
         </h2>
         <p>
           Reporting a crime is an important part of keeping our communities
