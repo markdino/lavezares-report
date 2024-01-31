@@ -16,21 +16,27 @@ const ReportCrimeInfoSection = () => {
           incidents and fostering a safer environment
         </p>
         <section className="flex xl:justify-between lg:justify-around justify-evenly gap-4 pt-20 max-w-7xl mx-auto flex-wrap">
-          <ReportCrimeInfoCard
-            imgSrc={shieldImage.src}
-            title="Be a Community Guardian"
-            text="Encourage community members to become guardians by reporting suspicious activities. Highlight the collective responsibility in keeping the neighborhood safe"
-          />
-          <ReportCrimeInfoCard
-            imgSrc={eyeImage.src}
-            title="Silent Witnesses Speak Loudest"
-            text="Emphasize the power of reporting as a silent witness to ensure justice. Assure anonymity and explain how even small details can make a significant impact"
-          />
-          <ReportCrimeInfoCard
-            imgSrc={loveOnesImage.src}
-            title="Protect Your Loved Ones"
-            text="Stress the role of crime reporting in safeguarding family and friends. Illustrate how reporting contributes to a safer environment for everyone"
-          />
+          <section className="hover:-translate-y-6 ease-in-out duration-150">
+            <ReportCrimeInfoCard
+              imgSrc={shieldImage.src}
+              title="Be a Community Guardian"
+              text="Encourage community members to become guardians by reporting suspicious activities. Highlight the collective responsibility in keeping the neighborhood safe"
+            />
+          </section>
+          <section className="hover:-translate-y-6 ease-in-out duration-150">
+            <ReportCrimeInfoCard
+              imgSrc={eyeImage.src}
+              title="Silent Witnesses Speak Loudest"
+              text="Emphasize the power of reporting as a silent witness to ensure justice. Assure anonymity and explain how even small details can make a significant impact"
+            />
+          </section>
+          <section className="hover:-translate-y-6 ease-in-out duration-150">
+            <ReportCrimeInfoCard
+              imgSrc={loveOnesImage.src}
+              title="Protect Your Loved Ones"
+              text="Stress the role of crime reporting in safeguarding family and friends. Illustrate how reporting contributes to a safer environment for everyone"
+            />
+          </section>
         </section>
       </section>
     </section>
