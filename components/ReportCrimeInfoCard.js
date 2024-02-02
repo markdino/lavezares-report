@@ -5,7 +5,7 @@ import imagePlaceholder from "@/assets/img/image-placeholder.png";
 
 const ReportCrimeInfoCard = ({ imgSrc, title, text }) => {
   return (
-    <Card className="mt-6 w-96">
+    <Card className="mt-6 sm:w-96 w-80">
       <CardHeader>
         <Image
           src={imgSrc || imagePlaceholder.src}
