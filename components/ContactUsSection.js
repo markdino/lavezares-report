@@ -1,9 +1,9 @@
 import React from "react";
 import ContactUsCard from "./ContactUsCard";
 
-const ContactUsSection = () => {
+const ContactUsSection = ({ id = "contact" }) => {
   return (
-    <section className="w-full py-28 px-10">
+    <section id={id} className="w-full py-28 px-10">
       <section className="text-center max-w-5xl mx-auto">
         <h2 className="font-bold lg:text-5xl text-4xl text-center mb-4">
           Contact Us

@@ -4,9 +4,9 @@ import shieldImage from "@/assets/img/reportCrimeSection/shield.png";
 import eyeImage from "@/assets/img/reportCrimeSection/eye.png";
 import loveOnesImage from "@/assets/img/reportCrimeSection/love-ones.png";
 
-const ReportCrimeInfoSection = () => {
+const ReportCrimeInfoSection = ({ id = "empower-safety" }) => {
   return (
-    <section className="w-full py-28 px-10 bg-blue-gray-700">
+    <section id={id} className="w-full py-28 px-10 bg-blue-gray-700">
       <section className="mx-auto text-center">
         <h2 className="font-bold lg:text-5xl text-4xl text-center mb-4 text-white">
           Empower Safety: Report a Crime
