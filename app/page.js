@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import ReportCrimeInfoSection from "@/components/ReportCrimeInfoSection";
 import SafetyInfoSection from "@/components/SafetyInfoSection";
 import ContactUsSection from "@/components/ContactUsSection";
+import Map from "@/components/Map";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <SafetyInfoSection />
       <ReportCrimeInfoSection />
       <ContactUsSection />
+      <Map title='Lavezares Municipal Hall' />
     </main>
   );
 }
