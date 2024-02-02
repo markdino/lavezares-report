@@ -9,7 +9,9 @@ const ContactUsSection = () => {
           Contact Us
         </h2>
         <p className="text-gray-600 mb-14">Let&apos;s Stay Connected</p>
-        <ContactUsCard />
+        <section className="flex justify-center w-full">
+          <ContactUsCard />
+        </section>
       </section>
     </section>
   );

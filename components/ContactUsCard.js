@@ -12,7 +12,7 @@ import verticalRightCurve from "@/assets/img/vertical-right-curve.png";
 
 const ContactUsCard = () => {
   return (
-    <Card className="flex-row-reverse overflow-hidden">
+    <Card className="lg:flex-row-reverse overflow-hidden lg:max-w-full max-w-md">
       <CardHeader floated={false} className="m-0 rounded-none shadow-none">
         <Image
           src={contactusThumbnail.src}
@@ -24,7 +24,7 @@ const ContactUsCard = () => {
           style={{ objectFit: "contain", objectPosition: "center center" }}
         />
       </CardHeader>
-      <section className="-mr-10 z-10 w-10 relative">
+      <section className="-mr-10 z-10 w-10 relative lg:block hidden">
         <Image
           src={verticalRightCurve.src}
           placeholder="blur"
@@ -33,11 +33,11 @@ const ContactUsCard = () => {
           alt="card-image"
         />
       </section>
-      <CardBody className="flex-grow p-10">
+      <CardBody className="flex-grow lg:py-10 sm:px-10">
         <Typography variant="h5" color="blue-gray" className="mb-2">
           Find Us On
         </Typography>
-        <section className="flex flex-col gap-2">
+        <section className="flex sm:flex-col flex-wrap justify-evenly gap-2">
           <ContactListItem
             socialIcon="facebook"
             link="https://www.facebook.com/lavezarestoday"

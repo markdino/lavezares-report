@@ -29,7 +29,7 @@ const ContactListItem = ({ link = "", socialIcon = "", displayText = "" }) => {
             <span>{socialIconList[socialIcon]}</span>
           </IconButton>
         )}
-        <Typography>{displayText || link}</Typography>
+        <Typography className="text-ellipsis overflow-hidden sm:block hidden">{displayText || link}</Typography>
       </section>
     </Link>
   );
