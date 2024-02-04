@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <section className="relative h-screen w-full">
+    <section className="relative h-[95vh] w-full">
       <Image
         src={banner.src}
         fill={true}

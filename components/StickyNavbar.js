@@ -18,7 +18,15 @@ const StickyNavbar = () => {
   const LOGIN = "Log In";
   const SIGNIN = "Sign Up";
   const LOGOUT = "Log Out";
-  const { isLogin, loginUser, logoutUser, image, isLoading, setIsLoading, setIsVerified } = useUserStore();
+  const {
+    isLogin,
+    loginUser,
+    logoutUser,
+    image,
+    isLoading,
+    setIsLoading,
+    setIsVerified,
+  } = useUserStore();
 
   const handleLogout = () => {
     signoutUser({
@@ -35,13 +43,13 @@ const StickyNavbar = () => {
     authUser({
       onSubmit: () => setIsLoading(true),
       onSuccess: (data) => {
-        setIsLoading(false)
-        setIsVerified(true)
-        loginUser(data)
+        setIsLoading(false);
+        setIsVerified(true);
+        loginUser(data);
       },
       onFailed: () => {
-        setIsLoading(false)
-        setIsVerified(true)
+        setIsLoading(false);
+        setIsVerified(true);
       },
     });
   }, []);
@@ -54,7 +62,7 @@ const StickyNavbar = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <a href="/#" className="flex items-center">
           Home
         </a>
       </Typography>
@@ -64,8 +72,8 @@ const StickyNavbar = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
-          Services
+        <a href="/#safety-info" className="flex items-center">
+          Safety Info
         </a>
       </Typography>
       <Typography
@@ -74,8 +82,18 @@ const StickyNavbar = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
-          Blocks
+        <a href="/#empower-safety" className="flex items-center">
+          Empower Safety
+        </a>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <a href="/#contact" className="flex items-center">
+          Contact
         </a>
       </Typography>
       {isLogin && (
@@ -100,7 +118,9 @@ const StickyNavbar = () => {
         <div className="flex items-center gap-4">
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-x-1">
-            {isLoading? (<Spinner />) : isLogin ? (
+            {isLoading ? (
+              <Spinner />
+            ) : isLogin ? (
               <>
                 <Button
                   variant="text"

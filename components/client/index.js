@@ -40,6 +40,7 @@ import SignupForm from "./SignupForm";
 import ProfileUploader from "./ProfileUploader";
 import ReportsTable from "./ReportsTable";
 import ManageUsers from "./ManageUsers";
+import ContactListItem from "./ContactListItem";
 
 export {
   Alert,
@@ -80,4 +81,5 @@ export {
   ProfileUploader,
   ReportsTable,
   ManageUsers,
+  ContactListItem,
 };
