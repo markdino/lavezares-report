@@ -12,6 +12,8 @@ import Link from "next/link";
 import { useUserStore } from "@/store/userStore";
 import { authUser, signoutUser } from "@/services/api";
 import { ProfileUploader } from "./client";
+import Image from "next/image";
+import logo from "@/assets/img/logo.png";
 
 const StickyNavbar = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -113,7 +115,16 @@ const StickyNavbar = () => {
     <Navbar className="fixed top-0 z-50 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Link href="/" className="mr-4 cursor-pointer py-1.5 font-medium">
-          Lavezares Reports
+          <section className="flex items-center gap-2">
+            <Image
+              src={logo.src}
+              width={38}
+              height={38}
+              alt="lavezares report logo"
+              className="absolute"
+            />
+            <span className="ml-10">Lavezares Report</span>
+          </section>
         </Link>
         <div className="flex items-center gap-4">
           <div className="mr-4 hidden lg:block">{navList}</div>
