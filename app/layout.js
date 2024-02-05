@@ -2,13 +2,12 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import StickyNavbar from "@/components/StickyNavbar";
 
-const inter = Inter({ subsets: ["latin"] });
+import sharedContent from "@/config/sharedContent.json";
 
-export const metadata = {
-  title: "Lavezares Reports",
-  description:
-    "Empower community well-being by reporting incidents and contributing to a safer environment. Your voice matters in keeping our communities safe, aiding law enforcement, and ensuring justice is served.",
-};
+const inter = Inter({ subsets: ["latin"] });
+const { title, description } = sharedContent;
+
+export const metadata = { title, description };
 
 export default function RootLayout({ children }) {
   return (

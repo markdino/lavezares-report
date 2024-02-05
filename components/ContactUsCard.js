@@ -9,8 +9,10 @@ import {
 import Image from "next/image";
 import contactusThumbnail from "@/assets/img/contactUsSection/contact-us-thumbnail.png";
 import verticalRightCurve from "@/assets/img/vertical-right-curve.png";
+import sharedContent from "@/config/sharedContent.json";
 
 const ContactUsCard = () => {
+  const { socials } = sharedContent;
   return (
     <Card className="lg:flex-row-reverse overflow-hidden lg:max-w-full max-w-md">
       <CardHeader floated={false} className="m-0 rounded-none shadow-none">
@@ -38,31 +40,15 @@ const ContactUsCard = () => {
           Find Us On
         </Typography>
         <section className="flex sm:flex-col flex-wrap justify-evenly gap-2">
-          <ContactListItem
-            socialIcon="facebook"
-            link="https://www.facebook.com/lavezarestoday"
-            displayText="facebook.com/lavezarestoday"
-          />
-          <ContactListItem
-            socialIcon="messenger"
-            link="https://www.m.me/lavezarestoday"
-            displayText="m.me/lavezarestoday"
-          />
-          <ContactListItem
-            socialIcon="instagram"
-            link="https://www.instagram.com/lavezarestoday"
-            displayText="@lavezarestoday"
-          />
-          <ContactListItem
-            socialIcon="email"
-            link="mailto:report.lavezares@gmail.com"
-            displayText="report.lavezares@gmail.com"
-          />
-          <ContactListItem
-            socialIcon="phone"
-            link="tel:09164683398"
-            displayText="09164683398"
-          />
+          {Array.isArray(socials) &&
+            socials.map((social) => (
+              <ContactListItem
+                key={social.icon}
+                socialIcon={social.icon}
+                link={social.link}
+                displayText={social.displayText}
+              />
+            ))}
         </section>
       </CardBody>
     </Card>

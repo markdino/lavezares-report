@@ -14,6 +14,7 @@ import { authUser, signoutUser } from "@/services/api";
 import { ProfileUploader } from "./client";
 import Image from "next/image";
 import logo from "@/assets/img/logo.png";
+import sharedContent from "@/config/sharedContent.json";
 
 const StickyNavbar = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -58,46 +59,21 @@ const StickyNavbar = () => {
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="/#" className="flex items-center">
-          Home
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="/#safety-info" className="flex items-center">
-          Safety Info
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="/#empower-safety" className="flex items-center">
-          Empower Safety
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="/#contact" className="flex items-center">
-          Contact
-        </a>
-      </Typography>
+      {Array.isArray(sharedContent?.navItems) &&
+        sharedContent.navItems.map((nav) => (
+          <Typography
+            key={nav.name}
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-normal"
+          >
+            <a href={nav.link} className="flex items-center">
+              {nav.name}
+            </a>
+          </Typography>
+        ))}
+
       {isLogin && (
         <Typography
           as="li"
