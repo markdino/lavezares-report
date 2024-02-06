@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import StickyNavbar from "@/components/StickyNavbar";
+import Footer from "@/components/Footer";
 
 import sharedContent from "@/config/sharedContent.json";
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <StickyNavbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
