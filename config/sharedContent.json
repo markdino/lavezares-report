@@ -1,0 +1,49 @@
+{
+    "title": "Lavezares Report",
+    "description": "Empower community well-being by reporting incidents and contributing to a safer environment. Your voice matters in keeping our communities safe, aiding law enforcement, and ensuring justice is served.",
+    "navItems": [
+        {
+            "name": "Home",
+            "link": "/#"
+        },
+        {
+            "name": "Safety Info",
+            "link": "/#safety-info"
+        },
+        {
+            "name": "Empower Safety",
+            "link": "/#empower-safety"
+        },
+        {
+            "name": "Contact",
+            "link": "/#contact"
+        }
+    ],
+    "socials": [
+        {
+            "icon": "facebook",
+            "link": "https://www.facebook.com/lavezarestoday",
+            "displayText": "facebook.com/lavezarestoday"
+        },
+        {
+            "icon": "messenger",
+            "link": "https://www.m.me/lavezarestoday",
+            "displayText": "m.me/lavezarestoday"
+        },
+        {
+            "icon": "instagram",
+            "link": "https://www.instagram.com/lavezarestoday",
+            "displayText": "@lavezarestoday"
+        },
+        {
+            "icon": "email",
+            "link": "mailto:report.lavezares@gmail.com",
+            "displayText": "report.lavezares@gmail.com"
+        },
+        {
+            "icon": "phone",
+            "link": "tel:09164683398",
+            "displayText": "09164683398"
+        }
+    ]
+}
