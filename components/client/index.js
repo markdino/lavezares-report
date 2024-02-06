@@ -41,6 +41,8 @@ import ProfileUploader from "./ProfileUploader";
 import ReportsTable from "./ReportsTable";
 import ManageUsers from "./ManageUsers";
 import ContactListItem from "./ContactListItem";
+import FooterSocialItem from "./FooterSocialItem";
+import MuiIcons from "./MuiIcons";
 
 export {
   Alert,
@@ -82,4 +84,6 @@ export {
   ReportsTable,
   ManageUsers,
   ContactListItem,
+  FooterSocialItem,
+  MuiIcons,
 };

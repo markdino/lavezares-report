@@ -10,11 +10,9 @@ const Map = ({
       src={src}
       width="100%"
       height="450"
-      frameborder="0"
-      allowfullscreen=""
       title={title && `${title} office map`}
       loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
+      referrerPolicy="no-referrer-when-downgrade"
       {...props}
     ></iframe>
   );
