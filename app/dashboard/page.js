@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 import { getAllReports, getAllUsers } from "@/services/api";
 import Link from "next/link";
 import { useUserStore } from "@/store/userStore";
+import BackgroundImage from "@/components/BackgroundImage";
 
 const Dashboard = () => {
   const REPORTS = "reports";
@@ -34,7 +35,12 @@ const Dashboard = () => {
   const [form, setForm] = useState(REPORTS);
 
   const router = useRouter();
-  const { isLogin, isAdmin, isLoading: isCheckingUser, isVerified } = useUserStore();
+  const {
+    isLogin,
+    isAdmin,
+    isLoading: isCheckingUser,
+    isVerified,
+  } = useUserStore();
 
   const handleGetAllReports = () => {
     getAllReports({
@@ -85,110 +91,111 @@ const Dashboard = () => {
   useEffect(() => {
     if (isVerified && !isLogin) {
       router.push("/login");
-      return;
     }
   }, [isLogin, isVerified]);
 
-  if (isCheckingUser)
-    return (
-      <main className="min-h-screen w-full px-2 flex flex-col justify-center items-center">
-        <Spinner className="w-10 h-10" />
-        <Typography>Checking logged user...</Typography>
-      </main>)
-
-  if (!isCheckingUser && isLogin)
-    return (
-      <main className="min-h-screen w-full px-2">
-        <section className="lg:pt-20 pt-16">
-          <Card className="h-full max-w-fit  mx-auto">
-            <CardHeader
-              floated={false}
-              shadow={false}
-              className="rounded-none flex justify-between"
-            >
-              <div className="mb-4">
-                <Typography variant="h5" color="blue-gray">
-                  {form === USERS
-                    ? "Manage Users"
-                    : `List of ${isAdmin ? "All" : "My"} Reports`}
-                </Typography>
-              </div>
-              <section className="flex gap-1">
-                {isAdmin &&
-                  (form === USERS ? (
-                    <Tooltip content="List of reports" placement="bottom">
-                      <IconButton
-                        variant="text"
-                        onClick={() => setForm(REPORTS)}
-                        size="lg"
-                        color="blue-gray"
-                        disabled={isLoading}
-                      >
-                        <span>
-                          <SummarizeIcon />
-                        </span>
-                      </IconButton>
-                    </Tooltip>
-                  ) : (
-                    <Tooltip content="Manage Users" placement="bottom">
-                      <IconButton
-                        variant="text"
-                        onClick={() => setForm(USERS)}
-                        size="lg"
-                        color="blue-gray"
-                        disabled={isLoading}
-                      >
-                        <span>
-                          <ManageAccountsIcon />
-                        </span>
-                      </IconButton>
-                    </Tooltip>
-                  ))}
-                <Tooltip content="Refresh" placement="bottom">
-                  <IconButton
-                    variant="text"
-                    onClick={fetchData}
-                    size="lg"
-                    color="blue-gray"
-                    disabled={isLoading}
-                  >
-                    <span>
-                      <AutorenewRoundedIcon />
-                    </span>
-                  </IconButton>
-                </Tooltip>
-                {form === REPORTS && (
-                  <Link href="/report/create">
-                    <Button color="green" className="flex items-center gap-1">
-                      <span className="hidden sm:block">Create New</span>
-                      <NoteAddIcon />
-                    </Button>
-                  </Link>
-                )}
-              </section>
-            </CardHeader>
-            <CardBody className="overflow-auto px-0">
-              {form === USERS ? (
-                <ManageUsers
-                  data={usersData}
-                  setData={setUsersData}
-                  isLoading={isLoading}
-                  error={error}
-                />
-              ) : (
-                <ReportsTable
-                  data={reportsData}
-                  setData={setReportsData}
-                  isLoading={isLoading}
-                  error={error}
-                />
-              )}
-            </CardBody>
-            <CardFooter></CardFooter>
-          </Card>
+  return (
+    <main className="min-h-screen w-full px-2 relative">
+      <BackgroundImage />
+      {isCheckingUser ? (
+        <section className="h-full flex flex-col justify-center items-center">
+          <Spinner className="w-10 h-10" />
+          <Typography>Checking logged user...</Typography>
         </section>
-      </main>
-    );
+      ) : (
+        isLogin && (
+          <section className="lg:pt-20 pt-16">
+            <Card className="h-full max-w-fit  mx-auto">
+              <CardHeader
+                floated={false}
+                shadow={false}
+                className="rounded-none flex justify-between"
+              >
+                <div className="mb-4">
+                  <Typography variant="h5" color="blue-gray">
+                    {form === USERS
+                      ? "Manage Users"
+                      : `List of ${isAdmin ? "All" : "My"} Reports`}
+                  </Typography>
+                </div>
+                <section className="flex gap-1">
+                  {isAdmin &&
+                    (form === USERS ? (
+                      <Tooltip content="List of reports" placement="bottom">
+                        <IconButton
+                          variant="text"
+                          onClick={() => setForm(REPORTS)}
+                          size="lg"
+                          color="blue-gray"
+                          disabled={isLoading}
+                        >
+                          <span>
+                            <SummarizeIcon />
+                          </span>
+                        </IconButton>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip content="Manage Users" placement="bottom">
+                        <IconButton
+                          variant="text"
+                          onClick={() => setForm(USERS)}
+                          size="lg"
+                          color="blue-gray"
+                          disabled={isLoading}
+                        >
+                          <span>
+                            <ManageAccountsIcon />
+                          </span>
+                        </IconButton>
+                      </Tooltip>
+                    ))}
+                  <Tooltip content="Refresh" placement="bottom">
+                    <IconButton
+                      variant="text"
+                      onClick={fetchData}
+                      size="lg"
+                      color="blue-gray"
+                      disabled={isLoading}
+                    >
+                      <span>
+                        <AutorenewRoundedIcon />
+                      </span>
+                    </IconButton>
+                  </Tooltip>
+                  {form === REPORTS && (
+                    <Link href="/report/create">
+                      <Button color="green" className="flex items-center gap-1">
+                        <span className="hidden sm:block">Create New</span>
+                        <NoteAddIcon />
+                      </Button>
+                    </Link>
+                  )}
+                </section>
+              </CardHeader>
+              <CardBody className="overflow-auto px-0">
+                {form === USERS ? (
+                  <ManageUsers
+                    data={usersData}
+                    setData={setUsersData}
+                    isLoading={isLoading}
+                    error={error}
+                  />
+                ) : (
+                  <ReportsTable
+                    data={reportsData}
+                    setData={setReportsData}
+                    isLoading={isLoading}
+                    error={error}
+                  />
+                )}
+              </CardBody>
+              <CardFooter></CardFooter>
+            </Card>
+          </section>
+        )
+      )}
+    </main>
+  );
 };
 
 export default Dashboard;

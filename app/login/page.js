@@ -16,6 +16,7 @@ import {
 } from "@/components/client";
 import classNames from "classnames";
 import { useUserStore } from "@/store/userStore";
+import BackgroundImage from "@/components/BackgroundImage";
 
 const LOGIN = "login";
 const SIGNUP = "signup";
@@ -45,7 +46,8 @@ const LoginPage = () => {
 
   if (isCheckingUser)
     return (
-      <main className="min-h-screen w-full px-2 flex flex-col justify-center items-center">
+      <main className="min-h-screen w-full relative px-2 flex flex-col justify-center items-center">
+         <BackgroundImage />
         <Spinner className="w-10 h-10" />
         <Typography>Checking logged user...</Typography>
       </main>
@@ -53,7 +55,8 @@ const LoginPage = () => {
 
   if (!isCheckingUser && !isLogin)
     return (
-      <main className="min-h-screen px-2 lg:pt-20 pt-16">
+      <main className="min-h-screen px-2 lg:pt-20 pt-16 relative">
+       <BackgroundImage />
         <Card className="w-full max-w-[24rem] mx-auto">
           <CardBody>
             <Tabs value={type} className="overflow-visible">
