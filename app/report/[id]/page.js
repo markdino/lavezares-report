@@ -12,6 +12,7 @@ import { useParams } from "next/navigation";
 
 import ReportRoundedIcon from "@mui/icons-material/ReportRounded";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
+import BackgroundImage from "@/components/BackgroundImage";
 
 const ViewReport = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,8 +38,9 @@ const ViewReport = () => {
   }, [params.id]);
 
   return (
-    <main className="min-h-screen">
-      <Card className="lg:mt-20 mt-16 mb-4 p-10 max-w-xl sm:mx-auto mx-2">
+    <main className="min-h-screen lg:pt-20 pt-16 pb-4 relative">
+      <BackgroundImage />
+      <Card className="p-10 max-w-xl sm:mx-auto mx-2">
         <Typography variant="h4" color="blue-gray">
           Crime and Incident Report
         </Typography>
@@ -62,7 +64,7 @@ const ViewReport = () => {
               ) : (
                 <WarningRoundedIcon />
               )}
-              <Typography>{error.message}</Typography>
+              <Typography>{error.message || 'Something went wrong!'}</Typography>
             </section>
           </Alert>
         ) : (
