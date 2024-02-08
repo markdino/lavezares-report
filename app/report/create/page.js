@@ -1,4 +1,5 @@
 "use client"
+import BackgroundImage from "@/components/BackgroundImage";
 import { Card, Typography, ReportForm } from "@/components/client";
 import { useUserStore } from "@/store/userStore";
 
@@ -17,8 +18,9 @@ const CreateReport = () => {
   };
 
   return (
-    <main className="min-h-screen">
-      <Card className="lg:mt-20 mt-16 mb-4 p-10 max-w-xl sm:mx-auto mx-2">
+    <main className="min-h-screen lg:pt-20 pt-16 pb-4  relative">
+      <BackgroundImage />
+      <Card className="p-10 max-w-xl sm:mx-auto mx-2">
         <Typography variant="h4" color="blue-gray">
           Create Crime and Incident Report
         </Typography>
