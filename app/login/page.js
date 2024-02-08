@@ -44,68 +44,67 @@ const LoginPage = () => {
     }
   }, [isLogin, isVerified]);
 
-  if (isCheckingUser)
-    return (
-      <main className="min-h-screen w-full relative px-2 flex flex-col justify-center items-center">
-         <BackgroundImage />
-        <Spinner className="w-10 h-10" />
-        <Typography>Checking logged user...</Typography>
-      </main>
-    );
-
-  if (!isCheckingUser && !isLogin)
-    return (
-      <main className="min-h-screen px-2 lg:pt-20 pt-16 relative">
-       <BackgroundImage />
-        <Card className="w-full max-w-[24rem] mx-auto">
-          <CardBody>
-            <Tabs value={type} className="overflow-visible">
-              <TabsHeader className="relative z-0 ">
-                <Tab value={LOGIN} onClick={() => handleChangeTab(LOGIN)}>
-                  Log In
-                </Tab>
-                <Tab value={SIGNUP} onClick={() => handleChangeTab(SIGNUP)}>
-                  Sign Up
-                </Tab>
-              </TabsHeader>
-              <TabsBody
-                className="!overflow-x-hidden"
-                animate={{
-                  initial: {
-                    x: type === LOGIN ? 400 : -400,
-                  },
-                  mount: {
-                    x: 0,
-                  },
-                  unmount: {
-                    x: type === LOGIN ? 400 : -400,
-                  },
-                }}
-              >
-                <TabPanel value={LOGIN} className="p-0">
-                  <section
-                    className={classNames({
-                      hidden: init && type !== LOGIN,
-                    })}
-                  >
-                    <LoginForm />
-                  </section>
-                </TabPanel>
-                <TabPanel value={SIGNUP} className="p-0">
-                  <section
-                    className={classNames({
-                      hidden: init && type !== SIGNUP,
-                    })}
-                  >
-                    <SignupForm />
-                  </section>
-                </TabPanel>
-              </TabsBody>
-            </Tabs>
-          </CardBody>
-        </Card>
-      </main>
-    );
+  return (
+    <main className="h-screen px-2 lg:pt-20 pt-16 relative">
+      <BackgroundImage />
+      {isCheckingUser ? (
+        <section className="h-full w-full flex flex-col justify-center items-center">
+          <Spinner className="w-10 h-10" />
+          <Typography>Checking logged user...</Typography>
+        </section>
+      ) : (
+        !isLogin && (
+          <Card className="w-full max-w-[24rem] mx-auto">
+            <CardBody>
+              <Tabs value={type} className="overflow-visible">
+                <TabsHeader className="relative z-0 ">
+                  <Tab value={LOGIN} onClick={() => handleChangeTab(LOGIN)}>
+                    Log In
+                  </Tab>
+                  <Tab value={SIGNUP} onClick={() => handleChangeTab(SIGNUP)}>
+                    Sign Up
+                  </Tab>
+                </TabsHeader>
+                <TabsBody
+                  className="!overflow-x-hidden"
+                  animate={{
+                    initial: {
+                      x: type === LOGIN ? 400 : -400,
+                    },
+                    mount: {
+                      x: 0,
+                    },
+                    unmount: {
+                      x: type === LOGIN ? 400 : -400,
+                    },
+                  }}
+                >
+                  <TabPanel value={LOGIN} className="p-0">
+                    <section
+                      className={classNames({
+                        hidden: init && type !== LOGIN,
+                      })}
+                    >
+                      <LoginForm />
+                    </section>
+                  </TabPanel>
+                  <TabPanel value={SIGNUP} className="p-0">
+                    <section
+                      className={classNames({
+                        hidden: init && type !== SIGNUP,
+                      })}
+                    >
+                      <SignupForm />
+                    </section>
+                  </TabPanel>
+                </TabsBody>
+              </Tabs>
+            </CardBody>
+          </Card>
+        )
+      )}
+    </main>
+  );
 };
 
 export default LoginPage;

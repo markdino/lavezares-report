@@ -95,7 +95,7 @@ const Dashboard = () => {
   }, [isLogin, isVerified]);
 
   return (
-    <main className="min-h-screen w-full px-2 relative">
+    <main className="h-screen w-full px-2 relative">
       <BackgroundImage />
       {isCheckingUser ? (
         <section className="h-full flex flex-col justify-center items-center">
