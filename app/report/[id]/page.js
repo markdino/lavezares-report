@@ -64,7 +64,7 @@ const ViewReport = () => {
               ) : (
                 <WarningRoundedIcon />
               )}
-              <Typography>{error.message}</Typography>
+              <Typography>{error.message || 'Something went wrong!'}</Typography>
             </section>
           </Alert>
         ) : (
