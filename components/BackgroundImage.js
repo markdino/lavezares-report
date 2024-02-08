@@ -13,6 +13,7 @@ const BackgroundImage = ({
 }) => {
   return (
     <Image
+    className="-z-10"
       src={src}
       blurDataURL={blurDataURL}
       placeholder={placeholder}

@@ -30,7 +30,7 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
   const reportsData = sortArrayOfObjects(data, "reportTime", "desc");
 
   const router = useRouter();
-  const { isAdmin } = useUserStore();
+  const { isAdmin, _id } = useUserStore();
   const TABLE_HEAD = [
     "Reported by",
     "Location",
@@ -226,7 +226,12 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
                           onClick={(e) => e.stopPropagation()}
                         >
                           <Tooltip content="Edit" placement="bottom">
-                            <IconButton color="light-blue">
+                            <IconButton
+                              color="light-blue"
+                              disabled={
+                                !report?.creator || report?.creator?._id !== _id
+                              }
+                            >
                               <span>
                                 <EditIcon />
                               </span>
