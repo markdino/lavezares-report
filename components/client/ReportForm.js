@@ -40,7 +40,7 @@ const ReportForm = ({ defaultFormData = {}, readOnly, action = "" }) => {
 
   const [formData, setFormData] = useState(defaultFormData);
   const [certify, setCertify] = useState(false);
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState({});
   const [uploadError, setUploadError] = useState("");
 
   const handleResetForm = () => {
@@ -61,7 +61,7 @@ const ReportForm = ({ defaultFormData = {}, readOnly, action = "" }) => {
 
   const handleFormData = (newData) => {
     setFormData((prevState) => ({ ...prevState, ...newData }));
-    setStatus("");
+    setStatus({});
   };
 
   const handleUploadData = (rawFiles) => {
@@ -94,24 +94,24 @@ const ReportForm = ({ defaultFormData = {}, readOnly, action = "" }) => {
       editReport({
         reportId: formData._id,
         reportData: formData,
-        onSubmit: () => setStatus("loading"),
+        onSubmit: () => setStatus({ value: "loading" }),
         onSuccess: () => {
-          setStatus("success");
+          setStatus({ value: "success" });
         },
-        onFailed: () => {
-          setStatus("failed");
+        onFailed: ({ data }) => {
+          setStatus({ value: "failed", error: data.error });
         },
       });
     } else {
       createReport({
         reportData: formData,
-        onSubmit: () => setStatus("loading"),
+        onSubmit: () => setStatus({ value: "loading" }),
         onSuccess: () => {
-          setStatus("success");
+          setStatus({ value: "success" });
           handleResetForm();
         },
-        onFailed: () => {
-          setStatus("failed");
+        onFailed: ({ data }) => {
+          setStatus({ value: "failed", error: data.error });
         },
       });
     }
@@ -375,13 +375,13 @@ const ReportForm = ({ defaultFormData = {}, readOnly, action = "" }) => {
             variant="gradient"
             size="lg"
             fullWidth
-            disabled={!certify || status === "loading"}
+            disabled={!certify || status.value === "loading"}
             onClick={handleSubmit}
           >
-            {status === "loading" && <Spinner className="-ml-7" />}
+            {status.value === "loading" && <Spinner className="-ml-7" />}
             Submit
           </Button>
-          {status === "success" ? (
+          {status.value === "success" ? (
             <Alert color="green" variant="ghost" className="mt-3">
               <section className="flex items-center gap-1">
                 <CheckCircleIcon />
@@ -389,11 +389,11 @@ const ReportForm = ({ defaultFormData = {}, readOnly, action = "" }) => {
               </section>
             </Alert>
           ) : (
-            status === "failed" && (
+            status.value === "failed" && (
               <Alert color="red" variant="ghost" className="mt-3">
-                <section className="flex items-center gap-1">
+                <section className="flex items-center gap-1 font-light">
                   <ErrorIcon />
-                  Report failed to submit
+                  {status.error || "Something went wrong! Failed to submit"}
                 </section>
               </Alert>
             )
