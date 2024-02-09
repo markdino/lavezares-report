@@ -3,9 +3,9 @@ import banner from "@/assets/img/banner.png";
 import { Button } from "@/components/client";
 import Link from "next/link";
 
-const Hero = () => {
+const Hero = ({ id = "Hero" }) => {
   return (
-    <section className="relative h-[95vh] w-full">
+    <section id={id} className="relative h-[95vh] w-full">
       <Image
         src={banner.src}
         fill={true}
@@ -24,9 +24,9 @@ const Hero = () => {
           </section>
           <section className="w-full flex justify-center gap-4 p-5 lg:flex-row flex-col">
             <Link href="/report/create">
-                <Button size="lg" color="light-blue" className="lg:w-auto w-full">
+              <Button size="lg" color="light-blue" className="lg:w-auto w-full">
                 Report a crime
-                </Button>
+              </Button>
             </Link>
             <a href="tel:711">
               <Button

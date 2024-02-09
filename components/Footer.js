@@ -39,13 +39,14 @@ const Footer = () => {
                     variant="small"
                     className="p-1 font-normal hover:text-blue-gray-200"
                   >
-                    <a href={nav.link} className="flex items-center">
+                    <Link href={nav.link} className="flex items-center">
                       {nav.name}
-                    </a>
+                    </Link>
                   </Typography>
                 ))}
             </ul>
           </section>
+
           <section>
             <Typography variant="h6">Contacts</Typography>
             <ul className="flex sm:flex-col sm:gap-2 gap-4">
@@ -62,6 +63,7 @@ const Footer = () => {
                 ))}
             </ul>
           </section>
+          
           <section>
             <Typography variant="h6">Opening Hours</Typography>
             <ul className="flex flex-col gap-2">
