@@ -2,8 +2,10 @@ import Image from "next/image";
 import banner from "@/assets/img/banner.png";
 import { Button } from "@/components/client";
 import Link from "next/link";
+import sharedContent from "@/config/sharedContent.json";
 
 const Hero = ({ id = "Hero" }) => {
+  const { policeStation } = sharedContent
   return (
     <section id={id} className="relative h-[95vh] w-full">
       <Image
@@ -28,12 +30,13 @@ const Hero = ({ id = "Hero" }) => {
                 Report a crime
               </Button>
             </Link>
-            <a href="tel:711">
+            <a href={`tel:${policeStation.contact}`}>
               <Button
                 size="lg"
                 color="white"
                 variant="outlined"
                 className="hover:bg-white hover:text-black lg:w-auto w-full"
+                title={policeStation.name}
               >
                 Call a police
               </Button>

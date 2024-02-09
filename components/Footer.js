@@ -7,7 +7,7 @@ import Link from "next/link";
 import { FooterSocialItem, Typography, MuiIcons } from "@/components/client";
 
 const Footer = () => {
-  const { title, description, navItems, socials } = sharedContent;
+  const { title, description, navItems, socials, openingHours } = sharedContent;
   return (
     <footer className="w-full bg-blue-gray-800">
       <section className="max-w-7xl py-10 px-10 mx-auto text-blue-gray-500 flex lg:flex-row flex-col lg:gap-2 gap-6">
@@ -63,17 +63,17 @@ const Footer = () => {
                 ))}
             </ul>
           </section>
-          
+
           <section>
             <Typography variant="h6">Opening Hours</Typography>
             <ul className="flex flex-col gap-2">
               <section className="flex gap-2">
                 <MuiIcons icon="dateRange" />
-                <Typography>Monday - Friday</Typography>
+                <Typography>{openingHours.day}</Typography>
               </section>
               <section className="flex gap-2">
                 <MuiIcons icon="clock" />
-                <Typography>8:00 AM - 5:00 PM</Typography>
+                <Typography>{openingHours.time}</Typography>
               </section>
             </ul>
           </section>
