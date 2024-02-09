@@ -4,7 +4,7 @@
     "navItems": [
         {
             "name": "Home",
-            "link": "/#"
+            "link": "/#hero"
         },
         {
             "name": "Safety Info",
@@ -45,5 +45,14 @@
             "link": "tel:09164683398",
             "displayText": "09164683398"
         }
-    ]
+    ],
+    "openingHours": {
+        "day": "Monday - Friday",
+        "time": "8:00 AM - 5:00 PM"
+    },
+    "policeStation": {
+        "name": "Lavezares Municipal Police Station",
+        "contact": "09173078314",
+        "facebook": "https://www.facebook.com/profile.php?id=100064108410398"
+    }
 }

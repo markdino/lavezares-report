@@ -68,9 +68,9 @@ const StickyNavbar = () => {
             color="blue-gray"
             className="p-1 font-normal"
           >
-            <a href={nav.link} className="flex items-center">
+            <Link href={nav.link} className="flex items-center">
               {nav.name}
-            </a>
+            </Link>
           </Typography>
         ))}
 
