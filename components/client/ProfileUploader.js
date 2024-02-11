@@ -20,6 +20,7 @@ const ProfileUploader = ({
   width= 28,
   className,
   defaultSrc,
+  defaultBlur,
   readOnly,
 }) => {
   const [hiddenInput, setHiddenInput] = useState(null);
@@ -73,7 +74,7 @@ const ProfileUploader = ({
           sizes="(max-width: 112px) 100vw, 50vw, 33vw"
           src={defaultSrc || photo?.url || profilePlaceholder.src}
           placeholder="blur"
-          blurDataURL={profilePlaceholder.src}
+          blurDataURL={defaultBlur || profilePlaceholder.blurDataURL}
           onLoad={() => setIsLoading(false)}
           onError={() => {
             setIsLoading(false);

@@ -141,30 +141,30 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
               </section>
             ) : (
               reportsData.map((report) => (
-                <>
-                  <tr
-                    onClick={() => handleView(report._id)}
-                    className="hover:bg-light-blue-50 cursor-pointer"
-                  >
-                    <td className={tdClassName}>
-                      <Typography className="font-bold max-w-[170px] truncate">
-                        {report.reporterPosition || ""}{" "}
-                        {report.reporterFirstName || ""}{" "}
-                        {report.reporterMiddleName || ""}{" "}
-                        {report.reporterLastName || ""}
-                      </Typography>
-                    </td>
-                    <td className={tdClassName}>
-                      <Typography className="max-w-[170px] truncate">
-                        {report.incidentLocation}
-                      </Typography>
-                    </td>
-                    <td className={tdClassName}>
-                      <Typography className="max-w-[170px] truncate">
-                        {report.incidentDetails}
-                      </Typography>
-                    </td>
-                    {/* <td className={tdClassName}>
+                <tr
+                  key={report._id}
+                  onClick={() => handleView(report._id)}
+                  className="hover:bg-light-blue-50 cursor-pointer"
+                >
+                  <td className={tdClassName}>
+                    <Typography className="font-bold max-w-[170px] truncate">
+                      {report.reporterPosition || ""}{" "}
+                      {report.reporterFirstName || ""}{" "}
+                      {report.reporterMiddleName || ""}{" "}
+                      {report.reporterLastName || ""}
+                    </Typography>
+                  </td>
+                  <td className={tdClassName}>
+                    <Typography className="max-w-[170px] truncate">
+                      {report.incidentLocation}
+                    </Typography>
+                  </td>
+                  <td className={tdClassName}>
+                    <Typography className="max-w-[170px] truncate">
+                      {report.incidentDetails}
+                    </Typography>
+                  </td>
+                  {/* <td className={tdClassName}>
                       <Typography className="max-w-[170px] truncate">
                         {report.suspectCharges}
                       </Typography>
@@ -180,78 +180,77 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
                         {report.suspectLastName || ""}
                       </Typography>
                     </td> */}
-                    <td
-                      className={classNames(tdClassName, {
-                        hidden: !isAdmin,
-                      })}
-                    >
-                      <Chip
-                        variant="ghost"
-                        color={
-                          !report?.creator
-                            ? "blue-gray"
-                            : report.creator.isAdmin
-                            ? "deep-purple"
-                            : "light-blue"
-                        }
-                        size="sm"
-                        value={
-                          !report?.creator
-                            ? "Guest"
-                            : report.creator.isAdmin
-                            ? "Admin"
-                            : "Regular"
-                        }
-                        className="rounded-full max-w-fit mx-auto"
-                      />
-                    </td>
-                    <td className={tdClassName}>
-                      <Typography className="max-w-[170px] truncate">
-                        {dayjs(report.crimeDate).format("L")}
-                        {" - "}
-                        {dayjs(report.crimeTime).format("LT")}
-                      </Typography>
-                    </td>
-                    <td className={tdClassName}>
-                      <Typography className="max-w-[170px] truncate">
-                        {dayjs(report.reportDate).format("L")}
-                        {" - "}
-                        {dayjs(report.reportTime).format("LT")}
-                      </Typography>
-                    </td>
-                    <td className={tdClassName}>
-                      <section className="flex gap-3">
-                        <Link
-                          href={`/report/${report._id}/edit`}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <Tooltip content="Edit" placement="bottom">
-                            <IconButton
-                              color="light-blue"
-                              disabled={
-                                !report?.creator || report?.creator?._id !== _id
-                              }
-                            >
-                              <span>
-                                <EditIcon />
-                              </span>
-                            </IconButton>
-                          </Tooltip>
-                        </Link>
-                        <Tooltip content="Delete" placement="bottom">
+                  <td
+                    className={classNames(tdClassName, {
+                      hidden: !isAdmin,
+                    })}
+                  >
+                    <Chip
+                      variant="ghost"
+                      color={
+                        !report?.creator
+                          ? "blue-gray"
+                          : report.creator.isAdmin
+                          ? "deep-purple"
+                          : "light-blue"
+                      }
+                      size="sm"
+                      value={
+                        !report?.creator
+                          ? "Guest"
+                          : report.creator.isAdmin
+                          ? "Admin"
+                          : "Regular"
+                      }
+                      className="rounded-full max-w-fit mx-auto"
+                    />
+                  </td>
+                  <td className={tdClassName}>
+                    <Typography className="max-w-[170px] truncate">
+                      {dayjs(report.crimeDate).format("L")}
+                      {" - "}
+                      {dayjs(report.crimeTime).format("LT")}
+                    </Typography>
+                  </td>
+                  <td className={tdClassName}>
+                    <Typography className="max-w-[170px] truncate">
+                      {dayjs(report.reportDate).format("L")}
+                      {" - "}
+                      {dayjs(report.reportTime).format("LT")}
+                    </Typography>
+                  </td>
+                  <td className={tdClassName}>
+                    <section className="flex gap-3">
+                      <Link
+                        href={`/report/${report._id}/edit`}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Tooltip content="Edit" placement="bottom">
                           <IconButton
-                            color="red"
-                            onClick={(e) => handleDelete(e, report._id)}
+                            color="light-blue"
+                            disabled={
+                              !report?.creator || report?.creator?._id !== _id
+                            }
                           >
                             <span>
-                              <DeleteForeverIcon />
+                              <EditIcon />
                             </span>
                           </IconButton>
                         </Tooltip>
-                      </section>
-                    </td>
-                  </tr>
-                </>
+                      </Link>
+                      <Tooltip content="Delete" placement="bottom">
+                        <IconButton
+                          color="red"
+                          onClick={(e) => handleDelete(e, report._id)}
+                        >
+                          <span>
+                            <DeleteForeverIcon />
+                          </span>
+                        </IconButton>
+                      </Tooltip>
+                    </section>
+                  </td>
+                </tr>
               ))
             ))
           )}
