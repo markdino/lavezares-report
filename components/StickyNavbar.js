@@ -199,12 +199,16 @@ const StickyNavbar = () => {
             </>
           ) : (
             <>
-              <Button fullWidth variant="text" size="sm">
-                <span>{LOGIN}</span>
-              </Button>
-              <Button fullWidth variant="gradient" size="sm">
-                <span>{SIGNIN}</span>
-              </Button>
+              <Link href="/login" className="w-full">
+                <Button fullWidth variant="text" size="sm">
+                  <span>{LOGIN}</span>
+                </Button>
+              </Link>
+              <Link href="/login?form=signup" className="w-full">
+                <Button fullWidth variant="gradient" size="sm">
+                  <span>{SIGNIN}</span>
+                </Button>
+              </Link>
             </>
           )}
         </div>
