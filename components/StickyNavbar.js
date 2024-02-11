@@ -30,6 +30,7 @@ const StickyNavbar = () => {
     setIsLoading,
     setIsVerified,
   } = useUserStore();
+  const { title, navItems } = sharedContent;
 
   const handleLogout = () => {
     signoutUser({
@@ -59,8 +60,8 @@ const StickyNavbar = () => {
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      {Array.isArray(sharedContent?.navItems) &&
-        sharedContent.navItems.map((nav) => (
+      {Array.isArray(navItems) &&
+        navItems.map((nav) => (
           <Typography
             key={nav.name}
             as="li"
@@ -94,12 +95,14 @@ const StickyNavbar = () => {
           <section className="flex items-center gap-2">
             <Image
               src={logo.src}
+              placeholder="blur"
+              blurDataURL={logo.blurDataURL}
               width={38}
               height={38}
-              alt="lavezares report logo"
+              alt={`${title} logo`}
               className="absolute"
             />
-            <span className="ml-10">Lavezares Report</span>
+            <span className="ml-10">{title}</span>
           </section>
         </Link>
         <div className="flex items-center gap-4">
@@ -192,11 +195,9 @@ const StickyNavbar = () => {
         {navList}
         <div className="flex items-center gap-x-1">
           {isLogin ? (
-            <>
-              <Button variant="text" size="sm" onClick={handleLogout}>
-                <span>{LOGOUT}</span>
-              </Button>
-            </>
+            <Button variant="text" size="sm" onClick={handleLogout}>
+              <span>{LOGOUT}</span>
+            </Button>
           ) : (
             <>
               <Link href="/login" className="w-full">
