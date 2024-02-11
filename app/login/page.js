@@ -45,10 +45,10 @@ const LoginPage = () => {
   }, [isLogin, isVerified]);
 
   return (
-    <main className="h-screen px-2 lg:pt-20 pt-16 relative">
+    <main className="min-h-screen px-2 lg:pt-20 pt-16 pb-4 relative">
       <BackgroundImage />
       {isCheckingUser ? (
-        <section className="h-full w-full flex flex-col justify-center items-center">
+        <section className="h-screen w-full flex flex-col justify-center items-center">
           <Spinner className="w-10 h-10" />
           <Typography>Checking logged user...</Typography>
         </section>
