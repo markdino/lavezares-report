@@ -95,16 +95,16 @@ const Dashboard = () => {
   }, [isLogin, isVerified]);
 
   return (
-    <main className="h-screen w-full px-2 relative">
+    <main className="min-h-screen w-full px-2 relative">
       <BackgroundImage />
       {isCheckingUser ? (
-        <section className="h-full flex flex-col justify-center items-center">
+        <section className="h-screen flex flex-col justify-center items-center">
           <Spinner className="w-10 h-10" />
           <Typography>Checking logged user...</Typography>
         </section>
       ) : (
         isLogin && (
-          <section className="lg:pt-20 pt-16">
+          <section className="lg:pt-20 pt-16 pb-4">
             <Card className="h-full max-w-fit  mx-auto">
               <CardHeader
                 floated={false}
