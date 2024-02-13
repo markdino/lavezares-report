@@ -2,11 +2,11 @@
 import { useState, useEffect } from "react";
 import {
   Navbar,
-  MobileNav,
   Typography,
   Button,
   IconButton,
   Spinner,
+  Collapse,
 } from "@material-tailwind/react";
 import Link from "next/link";
 import { useUserStore } from "@/store/userStore";
@@ -191,7 +191,7 @@ const StickyNavbar = () => {
           </IconButton>
         </div>
       </div>
-      <MobileNav open={openNav} className="z-50">
+      <Collapse open={openNav} className="z-50">
         {navList}
         <div className="flex items-center gap-x-1">
           {isLogin ? (
@@ -213,7 +213,7 @@ const StickyNavbar = () => {
             </>
           )}
         </div>
-      </MobileNav>
+      </Collapse>
     </Navbar>
   );
 };
