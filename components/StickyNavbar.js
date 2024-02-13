@@ -118,7 +118,7 @@ const StickyNavbar = () => {
                   className="hidden lg:inline-block"
                   onClick={handleLogout}
                 >
-                  <span>{LOGOUT}</span>
+                  {LOGOUT}
                 </Button>
                 <section>
                   <ProfileUploader
@@ -137,7 +137,7 @@ const StickyNavbar = () => {
                     size="sm"
                     className="hidden lg:inline-block"
                   >
-                    <span>{LOGIN}</span>
+                    {LOGIN}
                   </Button>
                 </Link>
                 <Link href="/login?form=signup">
@@ -146,7 +146,7 @@ const StickyNavbar = () => {
                     size="sm"
                     className="hidden lg:inline-block"
                   >
-                    <span>{SIGNIN}</span>
+                    {SIGNIN}
                   </Button>
                 </Link>
               </>
@@ -167,18 +167,18 @@ const StickyNavbar = () => {
         <div className="flex items-center gap-x-1">
           {isLogin ? (
             <Button variant="text" size="sm" onClick={handleLogout}>
-              <span>{LOGOUT}</span>
+              {LOGOUT}
             </Button>
           ) : (
             <>
               <Link href="/login" className="w-full">
                 <Button fullWidth variant="text" size="sm">
-                  <span>{LOGIN}</span>
+                  {LOGIN}
                 </Button>
               </Link>
               <Link href="/login?form=signup" className="w-full">
                 <Button fullWidth variant="gradient" size="sm">
-                  <span>{SIGNIN}</span>
+                  {SIGNIN}
                 </Button>
               </Link>
             </>
