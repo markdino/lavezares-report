@@ -95,8 +95,6 @@ const StickyNavbar = () => {
           <section className="flex items-center gap-2">
             <Image
               src={logo.src}
-              placeholder="blur"
-              blurDataURL={logo.blurDataURL}
               width={38}
               height={38}
               alt={`${title} logo`}
