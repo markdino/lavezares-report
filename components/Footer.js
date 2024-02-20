@@ -5,9 +5,14 @@ import brandLogo from "@/assets/img/logo.png";
 import sharedContent from "@/config/sharedContent.json";
 import Link from "next/link";
 import { FooterSocialItem, Typography, MuiIcons } from "@/components/client";
+import packageJson from "@/package.json";
 
 const Footer = () => {
   const { title, description, navItems, socials, openingHours } = sharedContent;
+  const currentYear = new Date().getFullYear();
+  const copyRightYear = currentYear > 2024 ? `2024 - ${currentYear}` : 2024;
+  const { author, version, customLicense } = packageJson;
+
   return (
     <footer className="w-full bg-blue-gray-800">
       <section className="max-w-7xl py-10 px-10 mx-auto text-blue-gray-500 flex lg:flex-row flex-col lg:gap-2 gap-6">
@@ -79,7 +84,28 @@ const Footer = () => {
           </section>
         </section>
       </section>
-      <section className="bg-blue-gray-900 py-2 px-10 text-blue-gray-400 text-center font-light text-sm">{`${title} © ${new Date().getFullYear()}`}</section>
+      <section className="bg-blue-gray-900 py-2 px-10 text-blue-gray-400 text-center font-light text-sm">
+        {`${title} version ${version} © ${copyRightYear}`} | develop and design
+        by{" "}
+        <Link
+          className="hover:text-blue-gray-200 underline"
+          passHref
+          href={author.url}
+          target="_blank"
+        >
+          {author.name}
+        </Link>
+        <br />
+        is licensed under{" "}
+        <Link
+          className="hover:text-blue-gray-200 underline"
+          passHref
+          href={customLicense.url}
+          target="_blank"
+        >
+          {customLicense.name}
+        </Link>
+      </section>
     </footer>
   );
 };
