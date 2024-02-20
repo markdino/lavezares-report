@@ -1,6 +1,6 @@
 {
   "name": "lavezares-reports",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -35,5 +35,15 @@
     "eslint-config-next": "13.5.6",
     "postcss": "^8",
     "tailwindcss": "^3"
+  },
+  "author": {
+    "name": "Mark Dino Pelonia",
+    "email": "markdinopelonia447@gmail.com",
+    "url": "https://markdino.com/"
+  },
+  "license": "CC-BY-4.0",
+  "customLicense": {
+    "name": "CC BY-NC 4.0",
+    "url": "http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1"
   }
 }
