@@ -197,17 +197,16 @@ const ManageUsers = ({ data = [], setData = () => {}, isLoading, error }) => {
           </section>
         </section>
       </section>
-      {error ||
-        (internalError && (
-          <section className="px-6">
-            <Alert variant="ghost" color="red">
-              <section className="flex gap-2">
-                <WarningRoundedIcon />
-                <Typography>{error || internalError}</Typography>
-              </section>
-            </Alert>
-          </section>
-        ))}
+      {(error || internalError) && (
+        <section className="px-6">
+          <Alert variant="ghost" color="red">
+            <section className="flex gap-2">
+              <WarningRoundedIcon />
+              <Typography>{error || internalError}</Typography>
+            </section>
+          </Alert>
+        </section>
+      )}
       <DeleteModal
         open={modalState.item}
         loading={modalState.isLoading}
