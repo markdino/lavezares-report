@@ -17,6 +17,7 @@ import logo from "@/assets/img/logo.png";
 import sharedContent from "@/config/sharedContent.json";
 import CloseIcon from "./svg/CloseIcon";
 import BurgerIcon from "./svg/BurgerIcon";
+import Notice from "./client/Notice";
 
 const StickyNavbar = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -91,7 +92,9 @@ const StickyNavbar = () => {
   );
 
   return (
-    <Navbar className="fixed top-0 z-50 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+    <header className="fixed top-0 z-50 w-full">
+    <Notice />
+    <Navbar className="h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Link href="/" className="mr-4 cursor-pointer py-1.5 font-medium">
           <section className="flex items-center gap-2">
@@ -186,6 +189,7 @@ const StickyNavbar = () => {
         </div>
       </Collapse>
     </Navbar>
+    </header>
   );
 };
 

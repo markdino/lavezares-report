@@ -10,6 +10,8 @@ const Hero = ({ id = "Hero" }) => {
     <section id={id} className="relative h-[95vh] w-full">
       <Image
         src={banner.src}
+        placeholder="blur"
+        blurDataURL={banner.blurDataURL}
         fill={true}
         style={{ objectFit: "cover" }}
         alt="Holy Mary statue"
