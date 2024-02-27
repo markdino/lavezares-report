@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import StickyNavbar from "@/components/StickyNavbar";
 import Footer from "@/components/Footer";
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
         <StickyNavbar />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
