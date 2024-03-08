@@ -222,7 +222,11 @@ const ReportsTable = ({ data, setData = () => {}, isLoading, error }) => {
                   <td className={tdClassName}>
                     <section className="flex gap-3">
                       <Link
-                        href={`/report/${report._id}/edit`}
+                        href={
+                          report?.creator && report?.creator?._id === _id
+                            ? `/report/${report._id}/edit`
+                            : ""
+                        }
                         onClick={(e) => e.stopPropagation()}
                       >
                         <Tooltip content="Edit" placement="bottom">
